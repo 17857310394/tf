@@ -1,0 +1,125 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Escape From The Red Planet"
+config/description="A 3D tower defense game with low-poly art style set on a red planet."
+run/main_scene="res://scenes/levels/GameScene.tscn"
+config/features=PackedStringArray("4.6")
+
+[display]
+
+window/size/width=1280
+window/size/height=720
+window/title="Escape From The Red Planet"
+
+[input]
+
+ui_accept={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"keycode": 32,
+"modifiers": 0,
+"type": "keyboard"
+}]
+}
+ui_left={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"keycode": 16777231,
+"modifiers": 0,
+"type": "keyboard"
+}, {
+"device": 0,
+"keycode": 65,
+"modifiers": 0,
+"type": "keyboard"
+}]
+}
+ui_right={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"keycode": 16777233,
+"modifiers": 0,
+"type": "keyboard"
+}, {
+"device": 0,
+"keycode": 68,
+"modifiers": 0,
+"type": "keyboard"
+}]
+}
+ui_up={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"keycode": 16777232,
+"modifiers": 0,
+"type": "keyboard"
+}, {
+"device": 0,
+"keycode": 87,
+"modifiers": 0,
+"type": "keyboard"
+}]
+}
+ui_down={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"keycode": 16777234,
+"modifiers": 0,
+"type": "keyboard"
+}, {
+"device": 0,
+"keycode": 83,
+"modifiers": 0,
+"type": "keyboard"
+}]
+}
+ui_1={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"keycode": 49,
+"modifiers": 0,
+"type": "keyboard"
+}]
+}
+ui_2={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"keycode": 50,
+"modifiers": 0,
+"type": "keyboard"
+}]
+}
+ui_3={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"keycode": 51,
+"modifiers": 0,
+"type": "keyboard"
+}]
+}
+
+[rendering]
+
+quality/driver/driver_name="Vulkan"
+
+[version]
+
+godot_version="4.6.1"
