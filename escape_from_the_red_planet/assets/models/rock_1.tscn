@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b52yuiyrr5b72"]
+
+[ext_resource type="ArrayMesh" uid="uid://c6n1ojopjpu0w" path="res://assets/models/stone_1/stone_1.obj" id="1_fn6ph"]
+[ext_resource type="Texture2D" uid="uid://boqqdgshp0c40" path="res://assets/models/stone_1/texture_pbr_v128.png" id="2_el5rs"]
+[ext_resource type="Texture2D" uid="uid://b0fks62hn14or" path="res://assets/models/stone_1/texture_pbr_v128_metallic.png" id="3_5hryw"]
+[ext_resource type="Texture2D" uid="uid://b3y8nsgu13v85" path="res://assets/models/stone_1/texture_pbr_v128_normal.png" id="4_ik5um"]
+[ext_resource type="Texture2D" uid="uid://b45fflhwlbt7y" path="res://assets/models/stone_1/texture_pbr_v128_roughness.png" id="5_sinl4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08lr5"]
+albedo_texture = ExtResource("2_el5rs")
+metallic = 1.0
+metallic_texture = ExtResource("3_5hryw")
+roughness_texture = ExtResource("5_sinl4")
+normal_enabled = true
+normal_texture = ExtResource("4_ik5um")
+
+[node name="Rock1" type="MeshInstance3D" unique_id=905198067]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = ExtResource("1_fn6ph")
+surface_material_override/0 = SubResource("StandardMaterial3D_08lr5")

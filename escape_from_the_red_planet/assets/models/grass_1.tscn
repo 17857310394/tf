@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cwlopvh0saa2u"]
+
+[ext_resource type="ArrayMesh" uid="uid://b7f87m054qcte" path="res://assets/models/grass_1/grass_1.obj" id="1_6heuy"]
+[ext_resource type="Texture2D" uid="uid://bd1prjm51fpo2" path="res://assets/models/grass_1/texture_pbr_v128.png" id="2_ha1uq"]
+[ext_resource type="Texture2D" uid="uid://hgiecs3sqty3" path="res://assets/models/grass_1/texture_pbr_v128_metallic.png" id="3_obj8u"]
+[ext_resource type="Texture2D" uid="uid://dqknaicxcs3bs" path="res://assets/models/grass_1/texture_pbr_v128_normal.png" id="4_niwyr"]
+[ext_resource type="Texture2D" uid="uid://ci6r6rl8xi5a4" path="res://assets/models/grass_1/texture_pbr_v128_roughness.png" id="5_fwwt5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6v44m"]
+albedo_texture = ExtResource("2_ha1uq")
+metallic = 1.0
+metallic_texture = ExtResource("3_obj8u")
+roughness_texture = ExtResource("5_fwwt5")
+normal_enabled = true
+normal_texture = ExtResource("4_niwyr")
+
+[node name="Grass1" type="MeshInstance3D" unique_id=2076668494]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = ExtResource("1_6heuy")
+surface_material_override/0 = SubResource("StandardMaterial3D_6v44m")

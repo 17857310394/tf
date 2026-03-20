@@ -50,3 +50,35 @@
 - **严格按照开发规划执行**：只实现当前开发规划中指定的功能，不要提前实现后续功能。比如：指令要求实现**1.1 创建大地图场景**：仅实现地形创建、环境元素添加和光照系统设置，不包括玩家控制器、视角切换等后续功能。
 - **逐步实现**：按照开发规划的顺序，完成一个功能后再开始下一个功能的实现。
 
+## Godot场景文件解析注意事项
+
+- **资源定义顺序**：确保所有SubResource在引用之前定义，遵循依赖关系的顺序（被依赖的资源先定义）。
+- **避免重复节点**：确保场景中没有重复的节点名称或ID，这会导致加载冲突。
+- **文件格式要求**：Godot的.tscn文件对语法和结构要求严格，任何格式错误（如缺少引号、括号不匹配）都会导致解析失败。
+- **资源依赖关系**：资源之间的依赖关系必须清晰，例如：ShaderMaterial依赖Shader，所以Shader必须在ShaderMaterial之前定义。
+- **使用Godot编辑器**：尽量通过Godot编辑器修改场景，而不是手动编辑.tscn文件，以避免格式错误。
+- **备份文件**：在修改复杂场景文件前，先备份原文件，以便在出错时可以恢复。
+- **验证加载**：修改后使用Godot编辑器打开验证，确保文件能够正确加载。
+
+## Godot官方文档参考
+
+### 学习新特性
+Godot 是一个功能丰富的游戏引擎。有很多东西可以学习。本章节将介绍如何使用在线手册、内置代码参考、参与在线社区，从而学习新特性、新技术。
+
+### 充分利用官方手册
+你可以通过以下方式访问和使用 Godot 官方手册：
+
+- **在线浏览**：访问 [Godot 官方文档](https://docs.godotengine.org/zh-cn/4.x/getting_started/introduction/learning_new_features.html) 查看详细内容。
+- **离线访问**：在 Godot 编辑器中通过帮助 -> 搜索帮助或按 F1 离线浏览。
+- **类参考**：手册附有类的参考部分，解释每个 Godot 类的可用功能和属性。
+- **导航技巧**：按住 Ctrl 键（macOS 上为 Cmd 键）并将鼠标悬停至类、属性、方法、信号、常量等标识符文本上，这时它会显示一道下划线，Ctrl + 单击（macOS 上为 Cmd + 单击）就会跳转。
+
+### 学会像程序员一样思考
+如果你是编程新手，推荐两个优秀的免费资源来帮助你入门：
+
+- **GDQuest 发布的 Learn GDScript From Zero**：一套免费，开源，且完全面向新手的 Godot 专属 GDScript 语言教程。你可以在 [https://gdquest.itch.io/learn-godot-gdscript](https://gdquest.itch.io/learn-godot-gdscript) 下载并安装桌面应用程序，或者通过网页版 [https://gdquest.github.io/learn-gdscript](https://gdquest.github.io/learn-gdscript) 来进行使用。
+- **Al Sweigart 的免费电子书**：《Automate The Boring Stuff With Python（使用 Python 自动化无聊的事情）》。
+
+### 优先参考官方文档
+**重要提示**：在开发过程中，遇到任何问题都应优先查看 Godot 官方文档。官方文档提供了最权威、最全面的信息，可以帮助你快速解决问题并学习最佳实践。
+
