@@ -20,7 +20,33 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# 处理移动输入
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	# 确定移动方向
+	var direction: Vector3
+	var camera_manager = get_parent().get_node_or_null("CameraManager")
+	
+	if camera_manager:
+		# 检查当前相机模式
+		var current_mode = camera_manager.current_mode
+		if current_mode == camera_manager.CameraMode.BIRDS_EYE:
+			# 鸟瞰视角：使用世界坐标系的绝对方向
+			# W: 世界坐标系正Z方向，A: 世界坐标系负X方向
+			direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
+		elif current_mode == camera_manager.CameraMode.THIRD_PERSON:
+			# 第三人称视角：使用第三人称相机的变换矩阵
+			var third_person_camera = camera_manager.third_person_camera
+			if third_person_camera:
+				var camera_basis = third_person_camera.global_transform.basis
+				direction = (camera_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+			else:
+				direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
+		else:
+			# 第一人称视角：使用玩家相机的变换矩阵
+			var camera_basis = camera.global_transform.basis
+			direction = (camera_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	else:
+		# 如果没有CameraManager，使用默认的方向
+		direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
 	
 	# 处理重力
 	velocity.y -= 9.8 * delta
@@ -54,14 +80,17 @@ func _input(event: InputEvent) -> void:
 
 func _handle_mouse_motion(event: InputEventMouseMotion) -> void:
 	# 垂直旋转（俯仰）
-	camera_rotation.x -= event.relative.y * mouse_sensitivity
+	var new_x = camera_rotation.x - event.relative.y * mouse_sensitivity
 	# 限制垂直旋转范围
-	camera_rotation.x = clamp(camera_rotation.x, -max_pitch, max_pitch)
+	new_x = clamp(new_x, -max_pitch, max_pitch)
 	
 	# 水平旋转（偏航）
-	camera_rotation.y -= event.relative.x * mouse_sensitivity
+	var new_y = camera_rotation.y - event.relative.x * mouse_sensitivity
+	
+	# 更新旋转向量
+	camera_rotation = Vector3(new_x, new_y, camera_rotation.z)
 	
 	# 应用旋转到摄像机
-	camera.rotation = Vector3(camera_rotation.x, camera_rotation.y, camera_rotation.z)
+	camera.rotation = camera_rotation
 	# 应用水平旋转到玩家（保持玩家朝向与视角一致）
-	rotation.y = camera_rotation.y
+	rotation.y = new_y

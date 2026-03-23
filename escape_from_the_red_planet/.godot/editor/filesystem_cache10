@@ -1,5 +1,5 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1774236411
+::res://::1774250980
 ::res://assets/::1773988045
 ::res://assets/models/::1774000733
 grass_1.tscn::PackedScene::6340582022488800554::1774000733::0::1::::<><><>0<>0<><>::uid://b7f87m054qcte::::res://assets/models/grass_1/grass_1.obj<>uid://bd1prjm51fpo2::::res://assets/models/grass_1/texture_pbr_v128.png<>uid://hgiecs3sqty3::::res://assets/models/grass_1/texture_pbr_v128_metallic.png<>uid://dqknaicxcs3bs::::res://assets/models/grass_1/texture_pbr_v128_normal.png<>uid://ci6r6rl8xi5a4::::res://assets/models/grass_1/texture_pbr_v128_roughness.png
@@ -27,13 +27,15 @@ texture_pbr_v128_roughness.png::CompressedTexture2D::4484141585336014172::177398
 ::res://resources/tower_data/::1773988045
 ::res://scenes/::1773991329
 ::res://scenes/enemies/::1773988045
-::res://scenes/levels/::1774236341
-GameScene.tscn::PackedScene::1212179569927138831::1774236341::0::1::::<><><>0<>0<><>::uid://c6n1ojopjpu0w::::res://assets/models/stone_1/stone_1.obj<>uid://b7f87m054qcte::::res://assets/models/grass_1/grass_1.obj
+::res://scenes/levels/::1774248998
+GameScene.tscn::PackedScene::1212179569927138831::1774250883::0::1::::<><><>0<>0<><>::uid://c6n1ojopjpu0w::::res://assets/models/stone_1/stone_1.obj<>uid://b7f87m054qcte::::res://assets/models/grass_1/grass_1.obj<>uid://ct1dvfmnxrkmk::::res://scripts/PlayerController.gd<>res://scripts/CameraManager.gd
 ::res://scenes/main_menu/::1773988045
 ::res://scenes/player/::1773993367
 ::res://scenes/towers/::1773988045
 ::res://scenes/ui/::1773988045
-::res://scripts/::1773991428
+::res://scripts/::1774250052
+CameraManager.gd::GDScript::2042332251294356618::1774250871::0::1::::<>Node3D<><>0<>0<><>::
+PlayerController.gd::GDScript::6160323152541153890::1774237780::0::1::::PlayerController<>CharacterBody3D<><>0<>0<><>::
 ::res://scripts/autoload/::1773988045
 ::res://scripts/enemies/::1773988045
 ::res://scripts/managers/::1773993313
