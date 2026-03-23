@@ -8,7 +8,7 @@
             "name": "GDScript: Launch Project",
             "type": "godot",
             "request": "launch",
-            "project": "${workspaceFolder}",
+            "project": "${workspaceFolder}/escape_from_the_red_planet",
             "debug_collisions": false,
             "debug_paths": false,
             "debug_navigation": false,

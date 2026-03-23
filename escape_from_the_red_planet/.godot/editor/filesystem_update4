@@ -1,1 +1,2 @@
 res://scenes/levels/GameScene.tscn
+res://scripts/PlayerController.gd

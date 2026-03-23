@@ -1,2 +1,5 @@
+MeshInstance3D
+Camera3D
+GridMap
 CollisionShape3D
 StaticBody3D
