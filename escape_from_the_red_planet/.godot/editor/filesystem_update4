@@ -6,3 +6,4 @@ res://scenes/new_mesh_library.tres
 res://scripts/towers/TowerBase.gd
 res://scripts/grid_map.gd
 res://scripts/constants.gd
+res://scripts/GridMap.gd
