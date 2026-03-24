@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 		if current_mode == camera_manager.CameraMode.BIRDS_EYE:
 			# 鸟瞰视角：使用世界坐标系的绝对方向
 			# W: 世界坐标系正Z方向，A: 世界坐标系负X方向
-			direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
+			direction = Vector3(-input_dir.x, 0, -input_dir.y).normalized()
 		elif current_mode == camera_manager.CameraMode.THIRD_PERSON:
 			# 第三人称视角：使用第三人称相机的变换矩阵
 			var third_person_camera = camera_manager.third_person_camera
@@ -79,18 +79,17 @@ func _input(event: InputEvent) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _handle_mouse_motion(event: InputEventMouseMotion) -> void:
-	# 垂直旋转（俯仰）
-	var new_x = camera_rotation.x - event.relative.y * mouse_sensitivity
-	# 限制垂直旋转范围
-	new_x = clamp(new_x, -max_pitch, max_pitch)
+	# 直接修改camera_rotation分量实现相机旋转
 	
-	# 水平旋转（偏航）
-	var new_y = camera_rotation.y - event.relative.x * mouse_sensitivity
+	# 垂直旋转（俯仰）：鼠标上下移动控制
+	camera_rotation.x -= event.relative.y * mouse_sensitivity
+	# 限制垂直旋转范围，防止过度旋转
+	camera_rotation.x = clamp(camera_rotation.x, -max_pitch, max_pitch)
 	
-	# 更新旋转向量
-	camera_rotation = Vector3(new_x, new_y, camera_rotation.z)
+	# 水平旋转（偏航）：鼠标左右移动控制
+	camera_rotation.y -= event.relative.x * mouse_sensitivity
 	
 	# 应用旋转到摄像机
 	camera.rotation = camera_rotation
 	# 应用水平旋转到玩家（保持玩家朝向与视角一致）
-	rotation.y = new_y
+	rotation.y = camera_rotation.y

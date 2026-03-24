@@ -20,7 +20,7 @@ var current_mode = CameraMode.FIRST_PERSON
 
 # 鸟瞰视角参数
 var birds_eye_height = 20.0
-var birds_eye_rotation = Vector3(60, 0, 0)
+var birds_eye_rotation = Vector3(30, 0, 0)
 var birds_eye_distance = 30.0
 
 # 第三人称视角参数
@@ -73,11 +73,8 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		if current_mode == CameraMode.THIRD_PERSON:
 			# 第三人称视角旋转
-			var new_y = camera_rotation.y - event.relative.x * mouse_sensitivity
-			# 限制第三人称视角的垂直旋转范围：最大到头顶（45度），最小到地面以上（-45度）
-			# 使用弧度而不是度数，45度 = PI/4弧度
-			var new_x = clamp(camera_rotation.x - event.relative.y * mouse_sensitivity, -PI/4, PI/4)
-			camera_rotation = Vector3(new_x, new_y, camera_rotation.z)
+			camera_rotation.x = clamp(camera_rotation.x - event.relative.y * mouse_sensitivity, -PI/4, PI/4)
+			camera_rotation.y = camera_rotation.y - event.relative.x * mouse_sensitivity
 	
 	# 鼠标滚轮缩放（仅鸟瞰视角）
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP:
@@ -122,13 +119,21 @@ func _process(_delta):
 				# 鸟瞰视角：相机位于玩家上方，仅缩放，不旋转
 				# 使用固定的旋转角度（俯视图）
 				# 在Godot中，x轴旋转负值表示向下看（俯视角）
-				var fixed_rotation = Vector3(-PI / 2, 0, 0)  # -60度转换为弧度
-				# 计算相机位置，考虑缩放距离
-				var camera_position = player.global_position + Vector3(0, birds_eye_height + birds_eye_distance, 0)
+				var fixed_rotation = birds_eye_rotation/180 * PI  # -转换为弧度
+				# 计算相机高度
+				var camera_height = birds_eye_height + birds_eye_distance
+				# 计算相机平移距离，使人物在不同旋转角度下都能保持在视口中间
+				# 平移距离 = 相机高度 * tan(旋转角度)
+				var pitch_angle = abs(fixed_rotation.x)  # 取旋转角度的绝对值
+				var forward_offset = camera_height * tan(pitch_angle)
+				# 计算相机位置：在玩家上方，向前平移一定距离
+				var camera_position = player.global_position + Vector3(0, camera_height, -forward_offset)
 				# 设置相机变换
 				birds_eye_camera.global_position = camera_position
 				# 设置相机旋转为固定的俯视角
 				birds_eye_camera.rotation = fixed_rotation
+				# 让相机看向玩家，确保角色在相机中心位置
+				birds_eye_camera.look_at(player.global_position, Vector3.UP)
 		
 		CameraMode.THIRD_PERSON:
 			if third_person_camera:

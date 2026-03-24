@@ -1,3 +1,8 @@
 res://scripts/CameraManager.gd
 res://scripts/PlayerController.gd
 res://scenes/levels/GameScene.tscn
+res://scenes/mesh_library_source.tscn
+res://scenes/new_mesh_library.tres
+res://scripts/towers/TowerBase.gd
+res://scripts/grid_map.gd
+res://scripts/constants.gd

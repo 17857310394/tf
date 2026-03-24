@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://cg6wrp6w5w11e"]
+
+[ext_resource type="Script" uid="uid://ml61wmja8vi3" path="res://scripts/towers/TowerBase.gd" id="1_5w4h6"]
+[ext_resource type="ArrayMesh" uid="uid://b7f87m054qcte" path="res://assets/models/grass_1/grass_1.obj" id="1_okh8k"]
+[ext_resource type="ArrayMesh" uid="uid://c6n1ojopjpu0w" path="res://assets/models/stone_1/stone_1.obj" id="2_5w4h6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a7feb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ifi18"]
+material = SubResource("StandardMaterial3D_a7feb")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8vfpg"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ee3vq"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gdsqg"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3ocub"]
+material = SubResource("StandardMaterial3D_gdsqg")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5w4h6"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_ee3vq"]
+material = SubResource("StandardMaterial3D_5w4h6")
+text = "P"
+pixel_size = 0.2
+depth = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ifi18"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_8vfpg"]
+material = SubResource("StandardMaterial3D_ifi18")
+text = "P"
+pixel_size = 0.2
+depth = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ocub"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_tcv57"]
+material = SubResource("StandardMaterial3D_3ocub")
+text = "P"
+pixel_size = 0.2
+depth = 1.0
+
+[node name="MeshLibrarySource" type="Node3D" unique_id=1351133472]
+
+[node name="地面" type="MeshInstance3D" parent="." unique_id=1737446578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6361184, -0.04453516, 1.9237473)
+mesh = SubResource("BoxMesh_ifi18")
+script = ExtResource("1_5w4h6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="地面" unique_id=1471270501]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="地面/StaticBody3D" unique_id=928252225]
+shape = SubResource("BoxShape3D_8vfpg")
+
+[node name="Grass1" type="MeshInstance3D" parent="." unique_id=1483587371]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.37656176, 0.5026307, -2.2479703)
+mesh = ExtResource("1_okh8k")
+
+[node name="Stone1" type="MeshInstance3D" parent="." unique_id=945233031]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0196695, 0, -2.2166638)
+mesh = ExtResource("2_5w4h6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Stone1" unique_id=58841068]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stone1/StaticBody3D" unique_id=297337013]
+shape = SubResource("BoxShape3D_ee3vq")
+
+[node name="炮台底座" type="MeshInstance3D" parent="." unique_id=1986653830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1211514, -0.08907032, 1.9520884)
+mesh = SubResource("BoxMesh_3ocub")
+script = ExtResource("1_5w4h6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="炮台底座" unique_id=1860205793]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="炮台底座/StaticBody3D" unique_id=1954993248]
+shape = SubResource("BoxShape3D_8vfpg")
+
+[node name="炮台1" type="MeshInstance3D" parent="." unique_id=356367303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5577558, -5.1433945)
+mesh = SubResource("TextMesh_ee3vq")
+
+[node name="炮台2" type="MeshInstance3D" parent="." unique_id=730491759]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6792886, -7.340661)
+mesh = SubResource("TextMesh_8vfpg")
+
+[node name="炮台3" type="MeshInstance3D" parent="." unique_id=1373396060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1437044, 1.1951218, -9.583189)
+mesh = SubResource("TextMesh_tcv57")

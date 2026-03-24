@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[node name="root" type="MeshInstance3D" unique_id=675662376]
+
+[node name="TriggerArea" type="Area3D" parent="." unique_id=1951912160]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerArea" unique_id=474051902]
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=833572358]
