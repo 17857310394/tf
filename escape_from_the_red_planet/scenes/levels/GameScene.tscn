@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://coae26oaktkt6" path="res://scripts/GridMap.gd" id="3_gssgs"]
 [ext_resource type="Script" uid="uid://ct1dvfmnxrkmk" path="res://scripts/player/PlayerController.gd" id="4_99d7c"]
 [ext_resource type="Script" uid="uid://qu0jxpgniuu5" path="res://scripts/managers/CameraManager.gd" id="5_12345"]
+[ext_resource type="PackedScene" uid="uid://0m3xy3fi7rmy" path="res://scenes/ui/playerMain.tscn" id="5_ad7hb"]
 
 [sub_resource type="Environment" id="Environment_0"]
 
@@ -70,8 +71,4 @@ shape = SubResource("BoxShape3D_8ypj0")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="city" unique_id=1632707164]
 
-[node name="Panel" type="Panel" parent="city/CanvasLayer" unique_id=1559212832]
-offset_left = 566.0
-offset_top = 283.0
-offset_right = 606.0
-offset_bottom = 323.0
+[node name="Panel" parent="city/CanvasLayer" unique_id=835136538 instance=ExtResource("5_ad7hb")]

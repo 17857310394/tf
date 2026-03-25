@@ -31,11 +31,8 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -103.100006
-offset_right = 101.89978
-offset_bottom = 98.0
+offset_bottom = 80.0
 grow_horizontal = 2
-grow_vertical = 2
 
 [node name="Container" type="ReferenceRect" parent="HBoxContainer" unique_id=603047822]
 custom_minimum_size = Vector2(100, 0)
@@ -65,7 +62,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="HBoxContainer/Container2" unique_id=2020751503]
 layout_mode = 0
 offset_top = 37.0
-offset_right = 200.0
+offset_right = 91.0
 offset_bottom = 60.0
 text = "金币："
 
@@ -86,3 +83,15 @@ anchor_right = 0.7
 anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="Button" type="Button" parent="." unique_id=1867920432]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.056
+anchor_top = 0.65000004
+anchor_right = 1.0
+anchor_bottom = 0.72800004
+offset_left = 0.48799896
+offset_right = -942.336
+offset_bottom = 0.25598145
+text = "start"
