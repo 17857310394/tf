@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://coae26oaktkt6" path="res://scripts/GridMap.gd" id="3_gssgs"]
 [ext_resource type="Script" uid="uid://ct1dvfmnxrkmk" path="res://scripts/player/PlayerController.gd" id="4_99d7c"]
 [ext_resource type="Script" uid="uid://qu0jxpgniuu5" path="res://scripts/managers/CameraManager.gd" id="5_12345"]
-[ext_resource type="PackedScene" uid="uid://0m3xy3fi7rmy" path="res://scenes/ui/playerMain.tscn" id="5_ad7hb"]
+[ext_resource type="PackedScene" uid="uid://dvjxw7qmf0je8" path="res://assets/models/towers/tower-round-middle-b.glb" id="5_ad7hb"]
 
 [sub_resource type="Environment" id="Environment_0"]
 
@@ -30,7 +30,7 @@ light_color = Color(1, 0.5, 0.2, 1)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=123456789]
 environment = SubResource("Environment_0")
 
-[node name="PlayerController" type="CharacterBody3D" parent="." unique_id=123456790 groups=["player"]]
+[node name="PlayerController" type="CharacterBody3D" parent="." unique_id=123456790]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1193368, 14.516912)
 script = ExtResource("4_99d7c")
 
@@ -55,7 +55,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 [node name="CameraManager" type="Node3D" parent="." unique_id=1206944146]
 script = ExtResource("5_12345")
 
-[node name="city" type="MeshInstance3D" parent="." unique_id=1654686552 groups=["tower"]]
+[node name="city" type="MeshInstance3D" parent="." unique_id=1654686552]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6758671, 0)
 mesh = SubResource("BoxMesh_ad7hb")
 
@@ -69,6 +69,5 @@ shape = SubResource("BoxShape3D_5p25d")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="city/Area3D" unique_id=446850629]
 shape = SubResource("BoxShape3D_8ypj0")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="city" unique_id=1632707164]
-
-[node name="Panel" parent="city/CanvasLayer" unique_id=835136538 instance=ExtResource("5_ad7hb")]
+[node name="tower-round-middle-b2" parent="." unique_id=1355972876 instance=ExtResource("5_ad7hb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7765975, 0, -6.8043633)

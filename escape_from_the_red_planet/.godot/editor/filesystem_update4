@@ -1,3 +1,6 @@
-res://scenes/levels/GameScene.tscn
-res://scenes/new_mesh_library.tres
 res://scenes/ui/playerMain.tscn
+res://scenes/new_mesh_library.tres
+res://scenes/levels/GameScene.tscn
+res://assets/models/towers/colormap.tres
+res://scenes/towers/TowerRoundMiddleB.tscn
+res://scenes/towers/GroundAttackTower.tscn

@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://0m3xy3fi7rmy"]
 
+[ext_resource type="Texture2D" uid="uid://cv35fup0i5y80" path="res://assets/ui/cross.png" id="1_6bmsd"]
+[ext_resource type="Texture2D" uid="uid://cnps5ebwose12" path="res://assets/ui/cross2.png" id="2_g03fr"]
+
 [node name="PlayerMain" type="Control" unique_id=1849237207]
 layout_mode = 3
 anchors_preset = 15
@@ -22,16 +25,26 @@ offset_bottom = 324.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="CenterContainer" unique_id=1460652094]
-custom_minimum_size = Vector2(100, 100)
+[node name="Panel" type="Panel" parent="CenterContainer" unique_id=97900082]
 layout_mode = 2
+
+[node name="Cross" type="Sprite2D" parent="CenterContainer/Panel" unique_id=1630212798]
+unique_name_in_owner = true
+texture = ExtResource("1_6bmsd")
+
+[node name="Cross2" type="Sprite2D" parent="CenterContainer/Panel" unique_id=35942577]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("2_g03fr")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=871931251]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
-offset_bottom = 80.0
+offset_left = -102.0
+offset_right = 102.0
+offset_bottom = 39.0
 grow_horizontal = 2
 
 [node name="Container" type="ReferenceRect" parent="HBoxContainer" unique_id=603047822]
@@ -39,20 +52,27 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/Container" unique_id=1526402156]
-layout_mode = 0
-offset_left = -1.0
-offset_top = 38.0
-offset_right = 199.0
-offset_bottom = 61.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 49.0
+offset_bottom = 11.5
+grow_vertical = 2
 text = "生命："
 vertical_alignment = 1
 
 [node name="hp" type="Label" parent="HBoxContainer/Container" unique_id=1383045731]
-layout_mode = 0
-offset_left = 54.0
-offset_top = 38.0
-offset_right = 110.0
-offset_bottom = 61.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 46.0
+offset_top = -12.5
+offset_right = 102.0
+offset_bottom = 10.5
+grow_vertical = 2
 text = "222"
 
 [node name="Container2" type="ReferenceRect" parent="HBoxContainer" unique_id=647885874]
@@ -60,38 +80,24 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/Container2" unique_id=2020751503]
-layout_mode = 0
-offset_top = 37.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
 offset_right = 91.0
-offset_bottom = 60.0
+offset_bottom = 11.5
+grow_vertical = 2
 text = "金币："
 
 [node name="money" type="Label" parent="HBoxContainer/Container2" unique_id=1407694748]
-layout_mode = 0
-offset_left = 52.0
-offset_top = 37.0
-offset_right = 96.0
-offset_bottom = 60.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 48.0
+offset_top = -11.5
+offset_right = 92.0
+offset_bottom = 11.5
+grow_vertical = 2
 text = "222"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1008715131]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.3
-anchor_top = 0.4
-anchor_right = 0.7
-anchor_bottom = 0.9
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Button" type="Button" parent="." unique_id=1867920432]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.056
-anchor_top = 0.65000004
-anchor_right = 1.0
-anchor_bottom = 0.72800004
-offset_left = 0.48799896
-offset_right = -942.336
-offset_bottom = 0.25598145
-text = "start"

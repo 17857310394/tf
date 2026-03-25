@@ -1,8 +1,10 @@
+MeshInstance3D
+Panel
+Sprite2D
 Button
 HBoxContainer
 VBoxContainer
 ReferenceRect
-Panel
 PanelContainer
 Label
 Container
@@ -11,5 +13,3 @@ HSplitContainer
 CenterContainer
 Control
 CanvasLayer
-Timer
-CollisionShape3D
