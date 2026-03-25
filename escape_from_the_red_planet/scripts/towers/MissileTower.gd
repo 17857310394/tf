@@ -2,7 +2,7 @@
 # 导弹塔实现类
 # 高伤害，追踪能力，发射导弹，具有追踪效果，攻击地面和空中敌人，导弹命中后产生小范围爆炸
 
-class_name MissileTower extends "res://scripts/BaseTower.gd"
+class_name MissileTower extends "res://scripts/towers/BaseTower.gd"
 
 # 导弹场景路径
 var missile_scene = null #preload("res://scenes/missile.tscn")
@@ -14,7 +14,7 @@ func attack():
         return
     
     is_attacking = true
-    emit_signal("on_attack_started")
+    attack_started.emit()
     
     # 发射导弹
     var missile = missile_scene.instantiate()
@@ -30,4 +30,4 @@ func attack():
     look_at(target.global_position, Vector3.UP)
     
     is_attacking = false
-    emit_signal("on_attack_completed")
+    attack_completed.emit()

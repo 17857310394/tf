@@ -29,7 +29,7 @@ light_color = Color(1, 0.5, 0.2, 1)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=123456789]
 environment = SubResource("Environment_0")
 
-[node name="PlayerController" type="CharacterBody3D" parent="." unique_id=123456790]
+[node name="PlayerController" type="CharacterBody3D" parent="." unique_id=123456790 groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1193368, 14.516912)
 script = ExtResource("4_99d7c")
 
@@ -54,7 +54,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 [node name="CameraManager" type="Node3D" parent="." unique_id=1206944146]
 script = ExtResource("5_12345")
 
-[node name="city" type="MeshInstance3D" parent="." unique_id=1654686552]
+[node name="city" type="MeshInstance3D" parent="." unique_id=1654686552 groups=["tower"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6758671, 0)
 mesh = SubResource("BoxMesh_ad7hb")
 
@@ -67,3 +67,11 @@ shape = SubResource("BoxShape3D_5p25d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="city/Area3D" unique_id=446850629]
 shape = SubResource("BoxShape3D_8ypj0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="city" unique_id=1632707164]
+
+[node name="Panel" type="Panel" parent="city/CanvasLayer" unique_id=1559212832]
+offset_left = 566.0
+offset_top = 283.0
+offset_right = 606.0
+offset_bottom = 323.0

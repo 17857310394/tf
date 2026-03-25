@@ -6,7 +6,7 @@ class_name GroundAttackTower extends BaseTower
 
 # 子弹场景路径
 var bullet_scene = preload("res://scenes/bullet.tscn")
-
+    
 # 攻击方法
 # 功能：执行普通塔的攻击逻辑，发射子弹
 func attack():
@@ -14,7 +14,7 @@ func attack():
         return
     
     is_attacking = true
-    emit_signal("on_attack_started")
+    attack_started.emit()
     
     # 发射子弹
     var bullet = bullet_scene.instantiate()
@@ -30,4 +30,4 @@ func attack():
     look_at(target.global_position, Vector3.UP)
     
     is_attacking = false
-    emit_signal("on_attack_completed")
+    attack_completed.emit()

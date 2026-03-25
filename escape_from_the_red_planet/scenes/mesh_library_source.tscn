@@ -23,15 +23,6 @@ albedo_color = Color(1, 0, 0, 1)
 material = SubResource("StandardMaterial3D_gdsqg")
 size = Vector3(2, 2, 2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5w4h6"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="TextMesh" id="TextMesh_ee3vq"]
-material = SubResource("StandardMaterial3D_5w4h6")
-text = "P"
-pixel_size = 0.2
-depth = 1.0
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ifi18"]
 albedo_color = Color(1, 0, 0, 1)
 
@@ -84,10 +75,6 @@ script = ExtResource("1_5w4h6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="炮台底座/StaticBody3D" unique_id=1954993248]
 shape = SubResource("BoxShape3D_8vfpg")
-
-[node name="炮台1" type="MeshInstance3D" parent="." unique_id=356367303]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5577558, -5.1433945)
-mesh = SubResource("TextMesh_ee3vq")
 
 [node name="炮台2" type="MeshInstance3D" parent="." unique_id=730491759]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6792886, -7.340661)

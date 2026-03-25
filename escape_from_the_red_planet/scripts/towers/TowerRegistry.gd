@@ -5,9 +5,9 @@
 class_name TowerRegistry
 
 # 引用TowerData类
-const TowerData = preload("res://scripts/TowerData.gd")
+const TowerData = preload("res://scripts/towers/TowerData.gd")
 # 引用BaseTower类
-const BaseTower = preload("res://scripts/BaseTower.gd")
+const BaseTower = preload("res://scripts/towers/BaseTower.gd")
 
 var tower_types = {}  # 防御塔类型字典，键为类型名称，值为包含脚本和数据的字典
 

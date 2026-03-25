@@ -4,12 +4,14 @@
 # 引用TowerData类
 
 
-class_name LaserTower extends "res://scripts/BaseTower.gd"
+class_name LaserTower extends "res://scripts/towers/BaseTower.gd"
 
 # 激光场景路径
 var laser_scene = null #preload("res://scenes/laser.tscn")
 # 当前激光实例
 var current_laser = null
+# 激光终点位置
+var laser_end_position = Vector3.ZERO
 # 激光持续时间
 var laser_duration = 0.5
 # 激光伤害间隔
@@ -24,17 +26,19 @@ func attack():
         return
     
     is_attacking = true
-    emit_signal("on_attack_started")
+    attack_started.emit()
     
-    # 创建激光
-    if not current_laser:
+    # 保存激光终点位置
+    laser_end_position = target.global_position
+    
+    # 创建激光（如果激光场景存在且当前没有激光）
+    if laser_scene and not current_laser:
         current_laser = laser_scene.instantiate()
         current_laser.position = global_position + Vector3(0, 1.2, 0)  # 从塔的顶部发射
         get_tree().get_root().add_child(current_laser)
-    
-    # 更新激光目标
-    current_laser.target = target
-    current_laser.set_end_position(target.global_position)
+        # 设置激光目标和终点位置
+        if current_laser.has_method("set_end_position"):
+            current_laser.set_end_position(laser_end_position)
     
     # 设置攻击冷却
     attack_cooldown = get_current_attack_speed()
@@ -46,7 +50,7 @@ func attack():
     laser_damage_timer = 0
     
     is_attacking = false
-    emit_signal("on_attack_completed")
+    attack_completed.emit()
 
 # 更新
 # 功能：处理激光的持续伤害和状态
@@ -59,8 +63,11 @@ func _process(delta):
     # 处理激光
     if current_laser:
         if target:
-            # 更新激光目标位置
-            current_laser.set_end_position(target.global_position)
+            # 更新激光终点位置
+            laser_end_position = target.global_position
+            # 只有当激光实例有set_end_position方法时才调用
+            if current_laser.has_method("set_end_position"):
+                current_laser.set_end_position(laser_end_position)
             
             # 处理持续伤害
             laser_damage_timer += delta
