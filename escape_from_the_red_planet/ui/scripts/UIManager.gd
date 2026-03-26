@@ -118,8 +118,9 @@ func register_event(event_name: String, callback: Callable, priority: int = 0) -
 # 参数:
 #   event_name: 事件名称
 #   data: 事件数据（可选）
-func emit_event(event_name: String, data: Dictionary = {}) -> void:
-	EventSystem.instance.emit(event_name, data)
+func emit_event(event_name: String, ...args) -> void:
+	var params = [event_name] + args
+	EventSystem.instance.emit.callv(params)
 
 # 注销事件
 # 参数:

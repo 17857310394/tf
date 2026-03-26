@@ -13,6 +13,9 @@ var camera_rotation: Vector3 = Vector3.ZERO
 # 节点引用
 @onready var camera: Camera3D = $Camera3D
 
+# 视线检测到的物体
+var focused_object: Node3D = null
+
 func _ready() -> void:
 	# 锁定鼠标到窗口中心
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -65,6 +68,68 @@ func _physics_process(delta: float) -> void:
 	
 	# 应用移动
 	move_and_slide()
+
+# 处理视线检测
+func _process(_delta: float) -> void:
+	# 查找相机管理器
+	var camera_manager = get_parent().get_node_or_null("CameraManager")
+	if not camera_manager:
+		return
+	
+	# 检查是否为第一人称视角
+	if camera_manager.current_mode != camera_manager.CameraMode.FIRST_PERSON:
+		# 如果不是第一人称视角，清空聚焦物体
+		if focused_object:
+			focused_object = null
+		return
+	
+	# 执行视线检测
+	var new_focused_object = _detect_looked_at_object()
+	
+	# 如果聚焦物体发生变化，更新状态并发出事件
+	if new_focused_object != focused_object:
+		# 发出失去聚焦的事件
+		if focused_object:
+			UIManager.instance.emit_event("player_stop_looking", focused_object)
+			print("玩家不再注视: " + focused_object.name)
+		
+		# 更新聚焦物体
+		focused_object = new_focused_object
+		
+		# 发出获得聚焦的事件
+		if focused_object:
+			UIManager.instance.emit_event("player_start_looking", focused_object)
+			print("玩家开始注视: " + focused_object.name)
+
+# 检测视线方向上的物体
+func _detect_looked_at_object() -> Node3D:
+	# 获取相机位置和前向向量
+	var camera_pos = camera.global_position
+	# 在 Godot 中，相机的前向向量通常是 -z 方向
+	var camera_forward = -camera.global_transform.basis.z
+	
+	# 设置射线长度
+	var ray_length = 1000.0  # 增加射线长度
+	var ray_end = camera_pos + camera_forward * ray_length
+	
+	# 创建射线查询参数
+	var ray_query = PhysicsRayQueryParameters3D.new()
+	ray_query.from = camera_pos
+	ray_query.to = ray_end
+	ray_query.exclude = [self]  # 排除自身
+	ray_query.collision_mask = 0xFFFFFFFF  # 检测所有碰撞层
+	
+	# 发射射线
+	var space_state = get_world_3d().direct_space_state
+	var collision = space_state.intersect_ray(ray_query)
+
+	# 如果有碰撞，返回碰撞对象
+	if collision:
+		print("碰撞对象: " + str(collision.collider.name))
+		return collision.collider
+	
+	# 否则返回null
+	return null
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:

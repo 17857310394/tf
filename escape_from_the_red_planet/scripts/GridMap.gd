@@ -48,7 +48,7 @@ func get_all_cells() -> void:
 # 为 TOWER_BASE 网格元素添加 TowerBase 脚本
 func _add_tower_base_for_mesh() -> void:
 	# 加载 TowerBase 脚本
-	var tower_base_script = preload("res://scripts/towers/TowerBase.gd")
+	var tower_base = preload("res://scenes/towers/TowerBase.tscn")
 	
 	# 遍历所有单元格，为 TOWER_BASE 元素添加 TowerBase 脚本
 	for pos in tower_base_cells:
@@ -56,22 +56,14 @@ func _add_tower_base_for_mesh() -> void:
 		var cell_position = Vector3(pos.x, pos.y, pos.z)
 		
 		# 创建触发盒 Area3D 节点
-		var trigger_area = Area3D.new()
-		trigger_area.name = "Area3D_" + str(pos.x) + "_" + str(pos.y) + "_" + str(pos.z)
+		var tower_instance = tower_base.instantiate()
+		tower_instance.name = "tower_" + str(pos.x) + "_" + str(pos.y) + "_" + str(pos.z)
 		
 		# 设置位置（在元素上方）
-		trigger_area.position = Vector3(pos.x, pos.y, pos.z) * cell_size + Vector3(0, 2, 0)
-		trigger_area.set_script(tower_base_script)
-
-		# 创建碰撞形状
-		var collision_shape = CollisionShape3D.new()
-		var box_shape = BoxShape3D.new()
-		box_shape.size = Vector3(3, 3, 3)
-		collision_shape.shape = box_shape
-		trigger_area.add_child(collision_shape)
+		tower_instance.position = Vector3(pos.x, pos.y, pos.z) * cell_size + Vector3(0, 2, 0)
 		
 		# 添加到场景
-		add_child(trigger_area)
+		add_child(tower_instance)
 
 
 

@@ -1,6 +1,10 @@
+CollisionShape3D
+Area3D
+StaticBody3D
+MeshInstance3D
+Label
 Node
 CanvasLayer
-Label
 ColorRect
 ScrollContainer
 MarginContainer
@@ -8,8 +12,3 @@ Control
 Container
 GridContainer
 Button
-VBoxContainer
-MeshInstance3D
-Panel
-Sprite2D
-HBoxContainer

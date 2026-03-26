@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://pr2ldc5s1hmy"]
+
+[ext_resource type="Script" uid="uid://ml61wmja8vi3" path="res://scripts/towers/TowerBase.gd" id="1_mq1r5"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_d6ujd"]
+size = Vector3(0.5, 1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mq1r5"]
+size = Vector3(2, 1, 2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_d6ujd"]
+radius = 3.0
+
+[node name="TowerBase" type="Node3D" unique_id=1020825757]
+script = ExtResource("1_mq1r5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1077435979]
+mesh = SubResource("BoxMesh_d6ujd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=478036328]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=7150680]
+shape = SubResource("BoxShape3D_mq1r5")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=909704228]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1086080971]
+shape = SubResource("SphereShape3D_d6ujd")

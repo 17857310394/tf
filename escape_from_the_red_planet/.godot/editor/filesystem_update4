@@ -1,3 +1,14 @@
-res://ui/test/UITestScene.tscn
+res://scripts/towers/TowerBase.gd
+res://ui/panels/Settings.tscn
 res://scenes/new_mesh_library.tres
+res://scripts/managers/eventSystem/NoteType.gd
+res://ui/panels/MainMenu.tscn
+res://ui/scripts/PlayerMain.gd
+res://ui/panels/playerMain.tscn
+res://scripts/GameScene.gd
+res://ui/scripts/UIManager.gd
+res://scripts/managers/eventSystem/EventSystemExample.gd
 res://scripts/managers/EventSystem.gd
+res://scripts/player/PlayerController.gd
+res://scenes/towers/TowerBase.tscn
+res://scripts/GridMap.gd
