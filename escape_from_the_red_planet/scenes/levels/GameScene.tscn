@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://rjgoj8808j8r"]
 
+[ext_resource type="Script" uid="uid://bkjpo5r8rsw6y" path="res://scripts/GameScene.gd" id="1_ad7hb"]
 [ext_resource type="MeshLibrary" uid="uid://b0264gdqxa31j" path="res://scenes/new_mesh_library.tres" id="2_80jls"]
 [ext_resource type="Script" uid="uid://coae26oaktkt6" path="res://scripts/GridMap.gd" id="3_gssgs"]
 [ext_resource type="Script" uid="uid://ct1dvfmnxrkmk" path="res://scripts/player/PlayerController.gd" id="4_99d7c"]
 [ext_resource type="Script" uid="uid://qu0jxpgniuu5" path="res://scripts/managers/CameraManager.gd" id="5_12345"]
-[ext_resource type="PackedScene" uid="uid://dvjxw7qmf0je8" path="res://assets/models/towers/tower-round-middle-b.glb" id="5_ad7hb"]
 
 [sub_resource type="Environment" id="Environment_0"]
 
@@ -22,6 +22,7 @@ size = Vector3(2, 2, 2)
 size = Vector3(3, 3, 3)
 
 [node name="GameScene" type="Node3D" unique_id=121730464]
+script = ExtResource("1_ad7hb")
 
 [node name="SunLight" type="DirectionalLight3D" parent="." unique_id=615136337]
 transform = Transform3D(-0.39006227, -0.86560506, 0.3139736, 0.5897892, 0.02698175, 0.8071064, -0.7071067, 0.50000006, 0.49999997, 10, 20, 10)
@@ -68,6 +69,3 @@ shape = SubResource("BoxShape3D_5p25d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="city/Area3D" unique_id=446850629]
 shape = SubResource("BoxShape3D_8ypj0")
-
-[node name="tower-round-middle-b2" parent="." unique_id=1355972876 instance=ExtResource("5_ad7hb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7765975, 0, -6.8043633)

@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://caa3ayi0hrcs8"]
+
+[ext_resource type="Script" uid="uid://ct151e2040sr4" path="res://ui/panels/MainMenu.gd" id="1_48clp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_48clp"]
+font_size = 32
+
+[node name="MainMenu" type="Control" unique_id=1115286288]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_48clp")
+
+[node name="Background" type="ColorRect" parent="." unique_id=499659023]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=740677117]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=228673965]
+layout_mode = 2
+text = "Escape From the Red Planet"
+label_settings = SubResource("LabelSettings_48clp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1358215770]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1478444221]
+layout_mode = 2
+text = "Start Game"
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1850557242]
+layout_mode = 2
+text = "Settings"
+
+[node name="ExitButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=530953175]
+layout_mode = 2
+text = "Exit"

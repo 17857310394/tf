@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://0m3xy3fi7rmx"]
+
+[ext_resource type="Script" uid="uid://d3cndxute1x56" path="res://ui/test/UITestScene.gd" id="1_nxi4u"]
+[ext_resource type="Script" uid="uid://ctulqxukbh5qp" path="res://scripts/core/EventSystemExample.gd" id="2_nkmqy"]
+
+[node name="UITestScene" type="Node" unique_id=1604231295]
+script = ExtResource("1_nxi4u")
+
+[node name="Node" type="Node" parent="." unique_id=1073640784]
+script = ExtResource("2_nkmqy")

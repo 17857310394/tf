@@ -1,0 +1,192 @@
+[gd_scene format=3 uid="uid://b26j4xtien4wn"]
+
+[node name="Test" type="Control" unique_id=985917614]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=974899419]
+layout_mode = 0
+offset_right = 178.0
+offset_bottom = 124.0
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer" unique_id=1362692602]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ColorRect2" type="ColorRect" parent="VBoxContainer" unique_id=806894614]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ColorRect3" type="ColorRect" parent="VBoxContainer" unique_id=99283987]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=1471416350]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 171.0
+offset_right = 179.99979
+offset_bottom = 268.36
+
+[node name="Button" type="Button" parent="VBoxContainer2" unique_id=1088960848]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer2/Button" unique_id=1102458067]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.5
+offset_top = -11.5
+offset_right = 85.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 6
+text = "xxx"
+
+[node name="Button2" type="Button" parent="VBoxContainer2" unique_id=1874118326]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer2/Button2" unique_id=1825872960]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.5
+offset_top = -11.5
+offset_right = 85.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 6
+text = "xxx"
+
+[node name="Button3" type="Button" parent="VBoxContainer2" unique_id=1870366954]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer2/Button3" unique_id=640600775]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.5
+offset_top = -11.5
+offset_right = 85.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 6
+text = "xxx"
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=450924551]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.74700004
+anchor_right = 0.21100001
+anchor_bottom = 1.0
+offset_top = -0.056030273
+offset_right = -0.072006226
+grow_horizontal = 2
+grow_vertical = 2
+columns = 3
+
+[node name="ColorRect" type="ColorRect" parent="GridContainer" unique_id=681763238]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect2" type="ColorRect" parent="GridContainer" unique_id=1314200094]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect3" type="ColorRect" parent="GridContainer" unique_id=2106498111]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect4" type="ColorRect" parent="GridContainer" unique_id=1495062568]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect5" type="ColorRect" parent="GridContainer" unique_id=42318286]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect6" type="ColorRect" parent="GridContainer" unique_id=2064071915]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=899083709]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.374
+anchor_top = 0.317
+anchor_right = 0.62600005
+anchor_bottom = 0.683
+offset_left = -0.34802246
+offset_top = 0.083999634
+offset_right = 0.34796143
+offset_bottom = -0.08401489
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer" unique_id=305457545]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=332097491]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_bottom = 362.0
+grow_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=773747168]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/VBoxContainer" unique_id=815825206]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="ColorRect2" type="ColorRect" parent="ScrollContainer/VBoxContainer" unique_id=1842469361]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="ColorRect3" type="ColorRect" parent="ScrollContainer/VBoxContainer" unique_id=1712898335]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="ColorRect4" type="ColorRect" parent="ScrollContainer/VBoxContainer" unique_id=1265662762]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="ColorRect5" type="ColorRect" parent="ScrollContainer/VBoxContainer" unique_id=198090640]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2

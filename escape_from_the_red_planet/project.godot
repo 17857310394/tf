@@ -12,8 +12,13 @@ config_version=5
 
 config/name="Escape From The Red Planet"
 config/description="A 3D tower defense game with low-poly art style set on a red planet."
-run/main_scene="res://scenes/levels/GameScene.tscn"
+run/main_scene="uid://0m3xy3fi7rmx"
 config/features=PackedStringArray("4.6")
+
+[autoload]
+
+UiManager="*uid://3y051sdhh3w5"
+eventSystem="*uid://dyf1q5od8em42"
 
 [display]
 

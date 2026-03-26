@@ -32,10 +32,14 @@ signal destroyed()  # 销毁时触发
 # 初始化
 # 功能：初始化防御塔的状态和组件
 func _ready():
+	# target_acquired.connect(on_target_acquired)
 	current_health = tower_data.base_health
 	initialize_skills()
 	create_range_visualizer()
 	initialize_area3d()
+
+# func on_target_acquired():
+# 	pass
 
 # 初始化技能
 # 功能：从tower_data中初始化技能
