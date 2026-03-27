@@ -1,3 +1,5 @@
+Node3D
+BaseTower
 CollisionShape3D
 Area3D
 StaticBody3D
@@ -11,4 +13,3 @@ MarginContainer
 Control
 Container
 GridContainer
-Button

@@ -59,8 +59,8 @@ func _add_tower_base_for_mesh() -> void:
 		var tower_instance = tower_base.instantiate()
 		tower_instance.name = "tower_" + str(pos.x) + "_" + str(pos.y) + "_" + str(pos.z)
 		
-		# 设置位置（在元素上方）
-		tower_instance.position = Vector3(pos.x, pos.y, pos.z) * cell_size + Vector3(0, 2, 0)
+		# 设置位置（在单元格中心上方）
+		tower_instance.position = (Vector3(pos.x, pos.y, pos.z) + Vector3(0.5, 0, 0.5)) * cell_size + Vector3(0, 2, 0)
 		
 		# 添加到场景
 		add_child(tower_instance)

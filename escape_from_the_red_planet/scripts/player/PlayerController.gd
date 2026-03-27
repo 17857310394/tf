@@ -1,6 +1,7 @@
+
+
 class_name PlayerController
 extends CharacterBody3D
-
 # 移动参数
 @export var move_speed: float = 6.0
 @export var jump_height: float = 2.0
@@ -88,18 +89,8 @@ func _process(_delta: float) -> void:
 	
 	# 如果聚焦物体发生变化，更新状态并发出事件
 	if new_focused_object != focused_object:
-		# 发出失去聚焦的事件
-		if focused_object:
-			UIManager.instance.emit_event("player_stop_looking", focused_object)
-			print("玩家不再注视: " + focused_object.name)
-		
 		# 更新聚焦物体
 		focused_object = new_focused_object
-		
-		# 发出获得聚焦的事件
-		if focused_object:
-			UIManager.instance.emit_event("player_start_looking", focused_object)
-			print("玩家开始注视: " + focused_object.name)
 
 # 检测视线方向上的物体
 func _detect_looked_at_object() -> Node3D:
@@ -109,7 +100,7 @@ func _detect_looked_at_object() -> Node3D:
 	var camera_forward = -camera.global_transform.basis.z
 	
 	# 设置射线长度
-	var ray_length = 1000.0  # 增加射线长度
+	var ray_length = 3  # 增加射线长度
 	var ray_end = camera_pos + camera_forward * ray_length
 	
 	# 创建射线查询参数

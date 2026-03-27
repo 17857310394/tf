@@ -26,7 +26,7 @@ signal target_lost()  # 失去目标时触发
 signal attack_started()  # 开始攻击时触发
 signal attack_completed()  # 攻击完成时触发
 signal upgraded(new_level)  # 升级时触发
-signal sold()  # 出售时触发
+signal sold(value)  # 出售时触发
 signal destroyed()  # 销毁时触发
 
 # 初始化
@@ -37,6 +37,8 @@ func _ready():
 	initialize_skills()
 	create_range_visualizer()
 	initialize_area3d()
+
+	sold.connect(on_sold)
 
 # func on_target_acquired():
 # 	pass
@@ -72,7 +74,7 @@ func attack():
 # 目标选择
 # 功能：选择攻击目标
 func select_target():
-	var area = $Area3D
+	var area = $TriggerArea
 	if not area:
 		return
 	
@@ -83,7 +85,7 @@ func select_target():
 		if body.is_in_group("enemies") and can_attack_target(body):
 			candidates.append(body)
 	
-	if candidates.empty():
+	if candidates.size() == 0:
 		target = null
 		target_lost.emit()
 		return
@@ -152,21 +154,42 @@ func can_attack_target(target: Node3D) -> bool:
 # 升级方法
 # 功能：升级防御塔
 func upgrade():
-	if level < tower_data.max_level:
-		level += 1
-		current_health = get_max_health()
-		if range_visualizer:
-			var mesh = range_visualizer.mesh as PlaneMesh
-			mesh.size = Vector2(get_current_range() * 2, get_current_range() * 2)
-		# 更新Area3D节点范围
-		var area = $Area3D
-		if area:
-			area.clear_shapes()
-			var shape = SphereShape3D.new()
-			shape.radius = get_current_range()
-			area.add_shape(shape)
-		play_upgrade_animation()
-		upgraded.emit(level)
+	# 检查 tower_data 是否存在
+	if not tower_data:
+		print("Error: tower_data is nil")
+		return
+	
+	# 检查是否可以升级
+	if level >= tower_data.max_level:
+		print("Error: Tower has reached maximum level")
+		return
+	
+	# 获取升级成本
+	var upgrade_cost = tower_data.get_upgrade_cost(level)
+	
+	# 获取玩家数据
+	var player_data = GameManager.instance.get_player_data()
+	if not player_data:
+		print("Error: PlayerData not found")
+		return
+	
+	# 检查玩家是否有足够的金币
+	if not player_data.remove_gold(upgrade_cost):
+		print("Not enough gold to upgrade tower! Need: " + str(upgrade_cost))
+		return
+	
+	# 执行升级
+	level += 1
+	current_health = get_max_health()
+	if range_visualizer:
+		var mesh = range_visualizer.mesh as PlaneMesh
+		mesh.size = Vector2(get_current_range() * 2, get_current_range() * 2)
+	# 更新Area3D节点范围
+	$TriggerArea/CollisionShape3D.shape.radius = get_current_range()
+
+	play_upgrade_animation()
+	upgraded.emit(level)
+	print("Tower upgraded to level " + str(level) + ", cost: " + str(upgrade_cost))
 
 # 获取最大生命值
 # 功能：计算当前等级的最大生命值
@@ -210,11 +233,16 @@ func take_damage(amount: float) -> void:
 # 功能：出售防御塔并返回收益
 # 返回值：
 #   int: 出售获得的金币
-func sell() -> int:
-	var sell_value = int(tower_data.build_cost * 0.7 * pow(1.2, level - 1))
-	sold.emit()
+func sell() -> void:
+	var sell_value = get_sell_value()
+	sold.emit(sell_value)
 	queue_free()
-	return sell_value
+
+func get_sell_value()->int:
+	return int(tower_data.build_cost * 0.7 * pow(1.2, level - 1))
+
+func on_sold(value:int)->void:
+	GameManager.instance.player_data.add_gold(value)
 
 # 更新技能冷却
 # 功能：更新所有技能的冷却时间
@@ -358,15 +386,7 @@ func hide_range_visualizer():
 # 初始化Area3D节点
 # 功能：设置Area3D节点的碰撞形状和范围
 func initialize_area3d():
-	var area = $Area3D
-	if area:
-		# 清除现有形状
-		area.clear_shapes()
-		# 创建新的球体形状
-		var shape = SphereShape3D.new()
-		shape.radius = get_current_range()
-		# 添加形状到Area3D
-		area.add_shape(shape)
+	$TriggerArea/CollisionShape3D.shape.radius = get_current_range()
 
 # 播放升级动画
 # 功能：播放升级动画和特效

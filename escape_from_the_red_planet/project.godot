@@ -19,6 +19,7 @@ config/features=PackedStringArray("4.6")
 
 uiManager="*uid://3y051sdhh3w5"
 eventSystem="*uid://dyf1q5od8em42"
+gameManager="*uid://bsk3sul0t87bj"
 
 [display]
 
@@ -241,6 +242,11 @@ camera_third_person={
 "modifiers": 0,
 "type": "keyboard"
 }, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":51,"key_label":0,"unicode":51,"location":0,"echo":false,"script":null)
+]
+}
+sold={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":70,"key_label":0,"unicode":102,"location":0,"echo":false,"script":null)
 ]
 }
 

@@ -10,9 +10,6 @@ metadata/_custom_type_script = "uid://nc8tftrm737i"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8pne6"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_1jwsj"]
-size = Vector3(1.5443115, 0.99090576, 1)
-
 [node name="GroundAttackTower" type="MeshInstance3D" unique_id=675662376 groups=["tower"]]
 script = ExtResource("1_xhclm")
 tower_data = SubResource("Resource_1jwsj")
@@ -23,10 +20,3 @@ tower_data = SubResource("Resource_1jwsj")
 shape = SubResource("SphereShape3D_8pne6")
 
 [node name="tower-round-middle-b2" parent="." unique_id=1355972876 instance=ExtResource("3_3lkof")]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="tower-round-middle-b2" unique_id=1750212126]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21002, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="tower-round-middle-b2/StaticBody3D" unique_id=172201015]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.043151855, -0.8937073, 0)
-shape = SubResource("BoxShape3D_1jwsj")

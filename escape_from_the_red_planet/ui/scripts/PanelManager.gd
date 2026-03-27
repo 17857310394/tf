@@ -82,6 +82,8 @@ func hide_panel(panel: Node, destroy: bool) -> void:
 	# 销毁面板
 	if destroy:
 		# 延迟销毁，确保动画完成
+		if panel.has_method("dispose"):
+			panel.dispose()
 		panel.call_deferred("queue_free")
 
 # 销毁面板

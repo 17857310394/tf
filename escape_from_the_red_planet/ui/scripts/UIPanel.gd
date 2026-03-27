@@ -48,3 +48,6 @@ func hide_panel() -> void:
 # 获取UIManager实例
 func get_ui_manager() -> UIManager:
 	return UIManager.instance
+
+func dispose() -> void:
+	pass

@@ -5,9 +5,16 @@ extends "../scripts/UIPanel.gd"
 func _ready() -> void:
 	UIManager.instance.register_event(NoteType.player_main_interactive,_oninteractive)
 	UIManager.instance.register_event(NoteType.player_main_cross,_oncross)
+	UIManager.instance.register_event(NoteType.player_main_money_change,_onmoney_change)
 
+func initialize(data: Dictionary) -> void:
+	$HBoxContainer/Container2/money.text = str(GameManager.instance.player_data.gold)
 
-func _oninteractive(event_name: String, interactive:bool) -> void:
+func _onmoney_change(event_name: String) -> void:
+	$HBoxContainer/Container2/money.text = str(GameManager.instance.player_data.gold)
+
+func _oninteractive(event_name: String,interactive:bool, interactive_text:String = "") -> void:
+	$interactive.text = interactive_text
 	$interactive.visible = interactive
 
 func _oncross(event_name: String, cross_index:int) -> void:
