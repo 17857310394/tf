@@ -25,9 +25,13 @@ func attack():
     
     # 设置攻击冷却
     attack_cooldown = get_current_attack_speed()
-    
-    # 旋转塔朝向目标
-    look_at(target.global_position, Vector3.UP)
+
+    # 旋转塔朝向目标（只旋转y轴）
+    var direction = (target.global_position - global_position).normalized()
+    direction.y = 0  # 忽略y轴分量
+    if direction.length() > 0:
+        var target_rotation = direction.angle_to(Vector3.FORWARD)
+        rotation.y = target_rotation
     
     is_attacking = false
     attack_completed.emit()

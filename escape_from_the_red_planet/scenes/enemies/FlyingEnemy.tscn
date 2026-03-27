@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bxp87ksbvkr5o"]
+
+[ext_resource type="Script" uid="uid://cc3oorwuebdlo" path="res://scripts/enemies/FlyingEnemy.gd" id="1_4a5b2"]
+[ext_resource type="Script" uid="uid://dtt8gbeft5scj" path="res://scripts/enemies/WeakPointDetector.gd" id="2_7c9d3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wbbus"]
+radius = 0.3
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wbbus"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wbbus"]
+
+[node name="FlyingEnemy" type="CharacterBody3D" unique_id=2063208204 groups=["enemies"]]
+motion_mode = 1
+script = ExtResource("1_4a5b2")
+
+[node name="WeakPointDetector" type="Node3D" parent="." unique_id=1595108802]
+script = ExtResource("2_7c9d3")
+
+[node name="WeakPoint" type="Area3D" parent="." unique_id=1419999583]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68081, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WeakPoint" unique_id=1342476894]
+shape = SubResource("SphereShape3D_wbbus")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1487449600]
+shape = SubResource("CapsuleShape3D_wbbus")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1252600211]
+mesh = SubResource("CapsuleMesh_wbbus")

@@ -139,16 +139,13 @@ func can_attack_target(target: Node3D) -> bool:
 	if not target:
 		return false
 	
-	var target_type = "ground"
-	if target.has("enemy_type"):
+	var target_type = 0
+	if target.has_method("enemy_type"):
 		target_type = target.enemy_type
-	match tower_data.attack_type:
-		"ground":
-			return target_type == "ground"
-		"air":
-			return target_type == "air"
-		"both":
-			return true
+	if(tower_data.attack_type == target.enemy_type):
+		return true
+	if(tower_data.attack_type == 2): # BOTH
+		return true;
 	return false
 
 # 升级方法
@@ -182,8 +179,8 @@ func upgrade():
 	level += 1
 	current_health = get_max_health()
 	if range_visualizer:
-		var mesh = range_visualizer.mesh as PlaneMesh
-		mesh.size = Vector2(get_current_range() * 2, get_current_range() * 2)
+		var mesh = range_visualizer.mesh as SphereMesh
+		mesh.radius = get_current_range()
 	# 更新Area3D节点范围
 	$TriggerArea/CollisionShape3D.shape.radius = get_current_range()
 
@@ -344,32 +341,35 @@ func trigger_slow(skill_data: Dictionary):
 # 功能：创建并初始化攻击范围可视化组件
 func create_range_visualizer():
 	range_visualizer = MeshInstance3D.new()
-	var mesh = PlaneMesh.new()
-	mesh.size = Vector2(get_current_range() * 2, get_current_range() * 2)
-	mesh.subdivide_width = 32
-	mesh.subdivide_depth = 32
+	var mesh = SphereMesh.new()
+	mesh.radius = get_current_range()
+	mesh.height = get_current_range()
 	range_visualizer.mesh = mesh
 	
 	var material = ShaderMaterial.new()
 	var shader = Shader.new()
 	shader.code = """
     shader_type spatial;
-    render_mode unshaded, transparent;
+    render_mode unshaded, transparent, additive;
+    
+    uniform float glow_strength : hint_range(0.0, 2.0) = 0.5;
     
     void fragment() {
-        vec2 uv = UV - 0.5;
-        float distance = length(uv);
-        if (distance > 0.5) discard;
+        // 创建半透明效果
         ALBEDO = vec3(0.0, 0.5, 1.0);
-        ALPHA = 0.3;
+        ALPHA = 0.2;
+        
+        // 添加发光效果
+        vec3 view_dir = normalize(camPos - worldPos);
+        float fresnel = 1.0 - dot(normalize(NORMAL), view_dir);
+        ALBEDO += vec3(0.2, 0.4, 1.0) * fresnel * glow_strength;
     }
     """
 	material.shader = shader
 	range_visualizer.material_override = material
 	
-	range_visualizer.rotation_degrees = Vector3(-90, 0, 0)
 	add_child(range_visualizer)
-	range_visualizer.visible = false
+	# range_visualizer.visible = false
 
 # 显示攻击范围可视化
 # 功能：显示攻击范围

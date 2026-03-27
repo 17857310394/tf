@@ -11,3 +11,8 @@ res://scripts/towers/BaseTower.gd
 res://scripts/towers/TowerData.gd
 res://ui/scripts/UIManager.gd
 res://scenes/towers/GroundAttackTower.tscn
+res://scenes/enemies/FlyingEnemy.tscn
+res://scenes/enemies/GroundEnemy.tscn
+res://scripts/enemies/GroundEnemy.gd
+res://scripts/towers/GroundAttackTower.gd
+res://assets/range_visualizer.gdshader

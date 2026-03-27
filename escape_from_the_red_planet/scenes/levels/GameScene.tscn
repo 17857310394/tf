@@ -1,21 +1,13 @@
 [gd_scene format=3 uid="uid://rjgoj8808j8r"]
 
 [ext_resource type="Script" uid="uid://bkjpo5r8rsw6y" path="res://scripts/GameScene.gd" id="1_ad7hb"]
+[ext_resource type="PackedScene" uid="uid://nih2nd6pqenw" path="res://scenes/player/player_controller.tscn" id="2_4vw1i"]
 [ext_resource type="MeshLibrary" uid="uid://b0264gdqxa31j" path="res://scenes/new_mesh_library.tres" id="2_80jls"]
-[ext_resource type="Script" uid="uid://ydobcx74w1i5" path="res://scripts/player/PlayerData.gd" id="3_4vw1i"]
 [ext_resource type="Script" uid="uid://coae26oaktkt6" path="res://scripts/GridMap.gd" id="3_gssgs"]
-[ext_resource type="Script" uid="uid://ct1dvfmnxrkmk" path="res://scripts/player/PlayerController.gd" id="4_99d7c"]
 [ext_resource type="Script" uid="uid://qu0jxpgniuu5" path="res://scripts/managers/CameraManager.gd" id="5_12345"]
+[ext_resource type="PackedScene" uid="uid://dl83yaf613jdc" path="res://scenes/enemies/GroundEnemy.tscn" id="6_5p25d"]
 
 [sub_resource type="Environment" id="Environment_0"]
-
-[sub_resource type="Resource" id="Resource_5p25d"]
-script = ExtResource("3_4vw1i")
-metadata/_custom_type_script = "uid://ydobcx74w1i5"
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_80jls"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ad7hb"]
 size = Vector3(2, 2, 2)
@@ -36,19 +28,8 @@ light_color = Color(1, 0.5, 0.2, 1)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=123456789]
 environment = SubResource("Environment_0")
 
-[node name="PlayerController" type="CharacterBody3D" parent="." unique_id=123456790]
+[node name="PlayerController" parent="." unique_id=1183017010 instance=ExtResource("2_4vw1i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1193368, 14.516912)
-script = ExtResource("4_99d7c")
-player_data = SubResource("Resource_5p25d")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerController" unique_id=123456791]
-shape = SubResource("CapsuleShape3D_0")
-
-[node name="Camera3D" type="Camera3D" parent="PlayerController" unique_id=1150049573]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerController" unique_id=588157776]
-mesh = SubResource("CapsuleMesh_80jls")
 
 [node name="GridMap" type="GridMap" parent="." unique_id=973949953]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
@@ -75,3 +56,6 @@ shape = SubResource("BoxShape3D_5p25d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="city/Area3D" unique_id=446850629]
 shape = SubResource("BoxShape3D_8ypj0")
+
+[node name="GroundEnemy" parent="." unique_id=1837089605 instance=ExtResource("6_5p25d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1600447, 1, 9.667044)

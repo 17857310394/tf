@@ -1,9 +1,9 @@
+MeshInstance3D
+CollisionShape3D
 Node3D
 BaseTower
-CollisionShape3D
 Area3D
 StaticBody3D
-MeshInstance3D
 Label
 Node
 CanvasLayer
@@ -12,4 +12,3 @@ ScrollContainer
 MarginContainer
 Control
 Container
-GridContainer

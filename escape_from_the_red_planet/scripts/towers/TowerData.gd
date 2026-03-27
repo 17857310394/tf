@@ -12,7 +12,13 @@ class_name TowerData extends Resource
 @export var base_health: float = 100.0  # 基础生命值
 @export var base_attack_speed: float = 1.0  # 攻击间隔（秒）
 @export var base_range: float = 10.0  # 基础攻击范围
-@export var attack_type: String = "ground"  # 攻击类型：ground（地面）、air（空中）、both（两者）
+enum EnemyType {
+	GROUND,
+	FLY,
+    BOTH,
+}
+
+@export var attack_type: EnemyType = EnemyType.GROUND #类型：ground（地面）、air（空中）、both（两者）
 
 # 升级属性
 @export var max_level: int = 3  # 最大升级等级
