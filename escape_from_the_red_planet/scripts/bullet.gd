@@ -1,31 +1,38 @@
 # bullet.gd
 # 子弹脚本
-# 实现子弹的移动、碰撞检测和生命周期管理
+# 处理子弹的飞行和碰撞逻辑
 
-extends Area3D
+class_name Bullet extends RigidBody3D
 
-# 子弹属性
-var target: Node3D
-var damage: float = 10.0
-var speed: float = 50.0
+var damage: float = 10  # 伤害值
+var speed: float = 50  # 飞行速度
+var lifetime: float = 2.0  # 生命周期
+var timer: float = 0  # 计时器
+var target: Node3D = null  # 目标（用于自动攻击模式）
 
 # 初始化
 func _ready():
-	# 连接碰撞信号
-	body_entered.connect(_on_body_entered)
-	# 连接定时器信号
-	$Timer.timeout.connect(_on_timer_timeout)
+	$Area3D.body_entered.connect(_on_body_entered)
+	if target:
+		# 自动攻击模式：追踪目标
+		var direction = (target.global_position - global_position).normalized()
+		linear_velocity = direction * speed
+		# 旋转子弹朝向目标
+		look_at(target.global_position, Vector3.UP)
+	else:
+		# 第一人称模式：沿直线飞行
+		linear_velocity = transform.basis.z * -speed
 
 # 更新
 func _process(delta):
-	if target and is_instance_valid(target):
-		# 计算移动方向
-		var direction = (target.global_position - global_position).normalized()
-		# 移动子弹
-		global_position += direction * speed * delta
-	else:
-		# 目标不存在，销毁子弹
+	timer += delta
+	if timer >= lifetime:
 		queue_free()
+	
+	# 如果有目标且目标存在，更新飞行方向和朝向
+	if target and is_instance_valid(target):
+		var direction = (target.global_position - global_position).normalized()
+		linear_velocity = direction * speed
 
 # 碰撞检测
 func _on_body_entered(body):
@@ -35,7 +42,3 @@ func _on_body_entered(body):
 			body.take_damage(damage)
 		# 销毁子弹
 		queue_free()
-
-# 生命周期结束
-func _on_timer_timeout():
-	queue_free()

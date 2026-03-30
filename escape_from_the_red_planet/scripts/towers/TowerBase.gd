@@ -31,13 +31,30 @@ func _process(_delta: float) -> void:
 			if not has_built:
 				build_tower()
 			else:
-				upgrade_tower()
+				interactive_tower()
 		if Input.is_action_just_pressed("sold") and has_built:
 			sell_tower()
+		if Input.is_action_just_pressed("upgrade") and has_built:
+			upgrade_tower()
 	
 	# 检测玩家注视
 	_check_player_looking()
 
+func interactive_tower() -> void:
+	# 获取炮塔实例
+	var tower_instance = $Tower.get_child(0)
+	if not tower_instance:
+		print("Error: Tower instance not found")
+		return
+	
+	# 检查是否可以进入
+	if tower_instance.has_method("enter_tower_control"):
+		# 查找玩家控制器
+		var player_controller = get_tree().root.get_node_or_null("GameScene/PlayerController")
+		if player_controller:
+			tower_instance.enter_tower_control(player_controller)
+			print("Entered tower control")
+	
 # 建造炮塔
 func build_tower() -> void:
 	# 获取玩家数据
@@ -78,8 +95,6 @@ func build_tower() -> void:
 	refresh_interactive_ui()
 	# 隐藏当前的TowerBase
 	$MeshInstance3D.hide()
-	
-	print("炮塔建造完成")
 
 # 升级炮塔
 func upgrade_tower() -> void:
@@ -137,11 +152,14 @@ func refresh_interactive_ui() -> void:
 		print("玩家开始注视该单位")
 		# 检查 UIManager 是否存在
 		if !has_built:
-			UIManager.instance.emit_event(NoteType.player_main_interactive,true, "按“E”建造")
+			UIManager.instance.emit_event(NoteType.player_main_text,true, "按“F”建造")
+			UIManager.instance.emit_event(NoteType.player_main_interactive,false)
 		else:
-			UIManager.instance.emit_event(NoteType.player_main_interactive,true, "按“E”升级、按“F“出售")
+			UIManager.instance.emit_event(NoteType.player_main_interactive,true)
+			UIManager.instance.emit_event(NoteType.player_main_text,false)
 			
 	else:
 		print("玩家不再注视该单位")
 		# 检查 UIManager 是否存在
 		UIManager.instance.emit_event(NoteType.player_main_interactive,false)
+		UIManager.instance.emit_event(NoteType.player_main_text,false)

@@ -14,6 +14,16 @@ var attack_cooldown: float = 0  # 攻击冷却时间
 var is_attacking: bool = false  # 是否正在攻击
 var target: Node3D = null  # 当前攻击目标
 
+# 第一人称控制相关属性
+var is_player_controlled: bool = false  # 是否由玩家控制
+var first_person_camera: Camera3D = null  # 第一人称相机
+var player_controller: Node3D = null  # 玩家控制器引用
+var camera_rotation: Vector3 = Vector3.ZERO  # 相机旋转状态
+var mouse_sensitivity: float = 0.01  # 鼠标灵敏度
+var max_pitch: float = PI/2  # 最大俯仰角度
+var is_firing: bool = false  # 是否正在开火（长按状态）
+
+
 # 技能系统
 var skills = {}  # 技能字典，键为技能名称，值为技能数据和冷却时间
 
@@ -61,15 +71,73 @@ func _process(delta):
 	update_skills(delta)
 	check_skill_triggers()
 	
-	if not target:
-		select_target()
-	elif attack_cooldown <= 0:
-		attack()
+	# 第一人称控制冷却
+	if is_player_controlled:
+		# 处理长按开火
+		if is_firing and attack_cooldown <= 0:
+			fire()
+	else:
+		if not target:
+			select_target()
+		elif attack_cooldown <= 0:
+			attack()
 
 # 攻击方法（由子类实现）
 # 功能：执行攻击逻辑
 func attack():
-	pass
+	if not target:
+		return
+
+	is_attacking = true
+	attack_started.emit()
+
+	# 设置攻击冷却
+	attack_cooldown = get_current_attack_speed()
+
+	# 旋转塔朝向目标（只旋转y轴）
+	var direction = (target.global_position - global_position)
+	direction.y = 0
+	if direction.length() > 0:
+		direction = direction.normalized()
+		# 使用atan2计算包含方向的角度
+		var target_rotation = atan2(direction.x, direction.z)
+		rotation.y = target_rotation
+
+	is_attacking = false
+	attack_completed.emit()
+
+# 输入处理
+# 功能：处理第一人称控制的输入
+func _input(event):
+	if not is_player_controlled:
+		return
+	
+	# 鼠标控制视角
+	if event is InputEventMouseMotion:
+		if first_person_camera:
+			# 垂直旋转（俯仰）：鼠标上下移动控制
+			camera_rotation.x -= event.relative.y * mouse_sensitivity
+			# 限制垂直旋转范围，防止过度旋转
+			camera_rotation.x = clamp(camera_rotation.x, -max_pitch, max_pitch)
+			
+			# 水平旋转（偏航）：鼠标左右移动控制
+			camera_rotation.y -= event.relative.x * mouse_sensitivity
+			
+			# 应用旋转到摄像机
+			first_person_camera.rotation = camera_rotation
+			# 应用水平旋转到防御塔（保持防御塔朝向与视角一致）
+			rotation.y = camera_rotation.y
+	
+	# 开火
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			is_firing = true
+		else:
+			is_firing = false
+	
+	# 退出
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F:
+		exit_tower_control()
 
 # 目标选择
 # 功能：选择攻击目标
@@ -343,29 +411,14 @@ func create_range_visualizer():
 	range_visualizer = MeshInstance3D.new()
 	var mesh = SphereMesh.new()
 	mesh.radius = get_current_range()
-	mesh.height = get_current_range()
+	mesh.height = get_current_range() * 2
 	range_visualizer.mesh = mesh
 	
 	var material = ShaderMaterial.new()
-	var shader = Shader.new()
-	shader.code = """
-    shader_type spatial;
-    render_mode unshaded, transparent, additive;
-    
-    uniform float glow_strength : hint_range(0.0, 2.0) = 0.5;
-    
-    void fragment() {
-        // 创建半透明效果
-        ALBEDO = vec3(0.0, 0.5, 1.0);
-        ALPHA = 0.2;
-        
-        // 添加发光效果
-        vec3 view_dir = normalize(camPos - worldPos);
-        float fresnel = 1.0 - dot(normalize(NORMAL), view_dir);
-        ALBEDO += vec3(0.2, 0.4, 1.0) * fresnel * glow_strength;
-    }
-    """
-	material.shader = shader
+	var shader = load("res://assets/shader/range_visualizer.gdshader")
+	if shader:
+		material.shader = shader
+	
 	range_visualizer.material_override = material
 	
 	add_child(range_visualizer)
@@ -401,3 +454,68 @@ func play_upgrade_animation():
 	#     upgrade_effect.global_position = global_position
 	#     get_tree().get_root().add_child(upgrade_effect)
 	#     upgrade_effect.lifetime = 2.0
+
+# 进入防御塔控制
+# 功能：进入防御塔的第一人称控制模式
+# 参数：
+#   player: 玩家控制器节点
+func enter_tower_control(player: Node3D) -> void:
+	is_player_controlled = true
+	player_controller = player
+	
+	# 保存玩家状态
+	player_controller.set_deferred("visible", false)
+	# 禁用玩家控制
+	player_controller.is_controllable = false
+	
+	# 创建第一人称相机
+	if not first_person_camera:
+		first_person_camera = Camera3D.new()
+		first_person_camera.name = "FirstPersonCamera"
+		first_person_camera.transform = Transform3D(Basis.IDENTITY, Vector3(0, 1.5, 0))
+		add_child(first_person_camera)
+	
+	# 激活相机
+	first_person_camera.current = true
+	
+	UIManager.instance.emit_event(NoteType.player_main_cross,1)
+
+# 退出防御塔控制
+# 功能：退出防御塔的第一人称控制模式
+func exit_tower_control() -> void:
+	is_player_controlled = false
+	
+	# 恢复玩家状态
+	if player_controller:
+		player_controller.set_deferred("visible", true)
+		# 恢复玩家控制
+		player_controller.is_controllable = true
+		player_controller = null
+	
+	# 禁用相机
+	if first_person_camera:
+		first_person_camera.current = false
+	
+	UIManager.instance.emit_event(NoteType.player_main_cross,0)
+
+# 开火逻辑
+# 功能：第一人称模式下的开火逻辑
+func fire():
+	if attack_cooldown > 0:
+		return
+	
+	# 检查是否有子弹场景
+	var bullet_scene = preload("res://scenes/bullet.tscn")
+	if not bullet_scene:
+		print("Error: Bullet scene not found")
+		return
+	
+	# 发射子弹
+	var bullet = bullet_scene.instantiate()
+	bullet.position = first_person_camera.global_position
+	bullet.rotation = first_person_camera.global_rotation
+	bullet.damage = get_current_damage()
+	get_tree().get_root().add_child(bullet)
+	
+	# 设置攻击冷却
+	attack_cooldown = get_current_attack_speed()

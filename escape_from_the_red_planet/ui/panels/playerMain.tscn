@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c1ukilpfuicni" path="res://ui/scripts/PlayerMain.gd" id="1_542dw"]
 [ext_resource type="Texture2D" uid="uid://cnps5ebwose12" path="res://assets/ui/cross2.png" id="2_g03fr"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_n02yd"]
+[sub_resource type="LabelSettings" id="LabelSettings_542dw"]
 font_size = 24
 
 [node name="PlayerMain" type="Control" unique_id=1849237207]
@@ -107,19 +107,88 @@ offset_bottom = 11.5
 grow_vertical = 2
 text = "222"
 
-[node name="interactive" type="Label" parent="." unique_id=1560921091]
+[node name="interactive_main" type="HBoxContainer" parent="." unique_id=2117145959]
 visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.43300003
-anchor_top = 0.762
-anchor_right = 0.56600004
-anchor_bottom = 0.81500006
-offset_left = 25.18396
-offset_top = 11.223999
-offset_right = -25.032043
-offset_bottom = -0.12005615
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -102.0
+offset_top = -217.0
+offset_right = 102.0
+offset_bottom = -143.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "按\"E\"进行交互"
-label_settings = SubResource("LabelSettings_n02yd")
+
+[node name="upgrade" type="Button" parent="interactive_main" unique_id=872052545]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="interactive_main/upgrade" unique_id=130157543]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_right = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "升级”E“"
+vertical_alignment = 1
+
+[node name="interactive" type="Button" parent="interactive_main" unique_id=1890982875]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="interactive_main/interactive" unique_id=1281654692]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_right = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "进入”F“"
+vertical_alignment = 1
+
+[node name="sell" type="Button" parent="interactive_main" unique_id=291551063]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="interactive_main/sell" unique_id=2087648351]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_right = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "出售”G“"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="label_text" type="Label" parent="." unique_id=1437223197]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -99.0
+offset_top = -174.0
+offset_right = 101.0
+offset_bottom = -132.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "按”F“建造"
+label_settings = SubResource("LabelSettings_542dw")
+horizontal_alignment = 1
+vertical_alignment = 1

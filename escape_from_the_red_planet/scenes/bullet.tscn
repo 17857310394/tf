@@ -1,23 +1,33 @@
-[gd_scene format=3 uid="uid://smlwbgrwlugw"]
+[gd_scene format=3 uid="uid://c8x4e7a3a7c"]
 
-[ext_resource type="Script" uid="uid://6w0oxks0hyel" path="res://scripts/bullet.gd" id="1_mkf8s"]
+[ext_resource type="Script" uid="uid://6w0oxks0hyel" path="res://scripts/bullet.gd" id="1_7a3a7d"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_h1aey"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_7a3a7e"]
 radius = 0.25
-height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7a3a80"]
+albedo_color = Color(1, 0.8, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7a3a7f"]
+radius = 0.1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mkf8s"]
 
-[node name="Bullet" type="Area3D" unique_id=1807725514]
-script = ExtResource("1_mkf8s")
+[node name="Bullet" type="RigidBody3D" unique_id=2038981876]
+collision_layer = 0
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_7a3a7d")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2125727134]
-mesh = SubResource("CapsuleMesh_h1aey")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2043644920]
+shape = SubResource("SphereShape3D_7a3a7e")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1127601585]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1377887998]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_7a3a80")
+mesh = SubResource("SphereMesh_7a3a7f")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=212815177]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=757619698]
 shape = SubResource("SphereShape3D_mkf8s")
-
-[node name="Timer" type="Timer" parent="." unique_id=755499068]
-wait_time = 3.0
-one_shot = true
-autostart = true

@@ -17,11 +17,20 @@ var camera_rotation: Vector3 = Vector3.ZERO
 # 视线检测到的物体
 var focused_object: Node3D = null
 
+# 控制状态
+var is_controllable: bool = true  # 是否可控制
+
 func _ready() -> void:
 	# 锁定鼠标到窗口中心
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta: float) -> void:
+	if not is_controllable:
+		# 如果不可控制，重置速度并返回
+		velocity.x = 0
+		velocity.z = 0
+		return
+	
 	# 处理移动输入
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	
@@ -123,16 +132,20 @@ func _detect_looked_at_object() -> Node3D:
 	return null
 
 func _input(event: InputEvent) -> void:
+	if not is_controllable:
+		# 如果不可控制，不处理输入
+		return
+	
 	if event is InputEventMouseMotion:
 		# 处理鼠标移动
 		_handle_mouse_motion(event)
 	
-	# 按 ESC 键释放鼠标
-	if Input.is_action_just_pressed("pause"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	# # 按 ESC 键释放鼠标
+	# if Input.is_action_just_pressed("pause"):
+	# 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+	# 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	# 	else:
+	# 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _handle_mouse_motion(event: InputEventMouseMotion) -> void:
 	# 直接修改camera_rotation分量实现相机旋转

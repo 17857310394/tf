@@ -3,24 +3,12 @@
 [ext_resource type="Script" uid="uid://7xjcyewj710h" path="res://scripts/towers/GroundAttackTower.gd" id="1_xhclm"]
 [ext_resource type="Script" uid="uid://nc8tftrm737i" path="res://scripts/towers/TowerData.gd" id="2_3lkof"]
 [ext_resource type="PackedScene" uid="uid://dvjxw7qmf0je8" path="res://assets/models/towers/tower-round-middle-b.glb" id="3_3lkof"]
-[ext_resource type="Shader" uid="uid://c86prsn6r5qrf" path="res://assets/range_visualizer.gdshader" id="4_efh6w"]
 
 [sub_resource type="Resource" id="Resource_1jwsj"]
 script = ExtResource("2_3lkof")
 metadata/_custom_type_script = "uid://nc8tftrm737i"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8pne6"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mgln7"]
-render_priority = 0
-shader = ExtResource("4_efh6w")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2xjfe"]
-render_priority = 0
-shader = ExtResource("4_efh6w")
-
-[sub_resource type="SphereMesh" id="SphereMesh_enahl"]
-material = SubResource("ShaderMaterial_2xjfe")
 
 [node name="GroundAttackTower" type="MeshInstance3D" unique_id=675662376 groups=["tower"]]
 script = ExtResource("1_xhclm")
@@ -32,9 +20,3 @@ tower_data = SubResource("Resource_1jwsj")
 shape = SubResource("SphereShape3D_8pne6")
 
 [node name="tower-round-middle-b2" parent="." unique_id=1355972876 instance=ExtResource("3_3lkof")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=528364348]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5721868, 0, 0)
-material_override = SubResource("ShaderMaterial_mgln7")
-mesh = SubResource("SphereMesh_enahl")
