@@ -15,7 +15,7 @@ enum EnemyType {
 			{ "count": 2, "type": EnemyType.FLYING_ENEMY }
 		], 
 		"spawn_interval": 1.0, 
-		"rest_time": 5.0 
+		"rest_time": 20.0 
 	}	
 ]
 

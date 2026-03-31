@@ -13,6 +13,10 @@ enum EnemyType {
 
 @export var enemy_type: EnemyType = EnemyType.GROUND
 
+# 物理相关属性
+@export var gravity_scale: float = 1.0  # 重力缩放，值越大下落越快
+@export var max_fall_speed: float = 50.0  # 最大下落速度
+
 # 内部变量
 var current_health = max_health
 var navigation_agent = null
@@ -32,7 +36,17 @@ func _ready():
 		navigation_agent.target_position = target_position
 
 func _physics_process(delta):
+	# 应用重力（无论是否死亡）
+	var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * gravity_scale
+	velocity.y -= gravity * delta
+	
+	# 限制最大下落速度
+	if velocity.y < -max_fall_speed:
+		velocity.y = -max_fall_speed
+
 	if is_dead:
+		# 死亡后只处理下落
+		move_and_slide()
 		return
 
 	# 定期更新目标（每0.5秒）
@@ -51,10 +65,16 @@ func _physics_process(delta):
 
 		var next_path_position: Vector3 = navigation_agent.get_next_path_position()
 		var new_velocity: Vector3 = global_position.direction_to(next_path_position) * movement_speed
+		# 保持垂直速度，只更新水平速度
+		if enemy_type != EnemyType.FLY:
+			new_velocity.y = velocity.y
 		if navigation_agent.avoidance_enabled:
 			navigation_agent.set_velocity(new_velocity)
 		else:
 			_on_velocity_computed(new_velocity)
+	else:
+		# 如果没有导航代理，直接移动
+		move_and_slide()
 
 func _on_velocity_computed(safe_velocity: Vector3):
 	velocity = safe_velocity

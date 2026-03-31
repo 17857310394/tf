@@ -13,13 +13,6 @@ func _ready():
 	# 使用飞行速度
 	movement_speed = flight_speed
 
-func _physics_process(delta):
-	super(delta)
-	# 保持飞行高度
-
-func _update_target():
-	super()
-
 func _die():
 	is_dead = true
 	print("Flying enemy died")
