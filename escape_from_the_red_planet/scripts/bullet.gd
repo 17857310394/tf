@@ -9,10 +9,11 @@ var speed: float = 50  # 飞行速度
 var lifetime: float = 2.0  # 生命周期
 var timer: float = 0  # 计时器
 var target: Node3D = null  # 目标（用于自动攻击模式）
+var has_damage: bool = false  # 是否已造成伤害标志
 
 # 初始化
 func _ready():
-	$Area3D.body_entered.connect(_on_body_entered)
+	$Area3D.body_shape_entered.connect(_on_body_entered)
 	if target:
 		# 自动攻击模式：追踪目标
 		var direction = (target.global_position - global_position).normalized()
@@ -35,10 +36,18 @@ func _process(delta):
 		linear_velocity = direction * speed
 
 # 碰撞检测
-func _on_body_entered(body):
+func _on_body_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int):
 	if body.is_in_group("enemies"):
-		# 对敌人造成伤害
-		if body.has_method("take_damage"):
-			body.take_damage(damage)
+		if has_damage:
+			return  # 已造成伤害，不重复处理
+
+		if target:
+			# 自动攻击模式：固定伤害
+			body.take_damage(damage,1)
+		else:
+			body.take_damage(damage,body_shape_index)
+		
+		has_damage = true	
 		# 销毁子弹
 		queue_free()
+		

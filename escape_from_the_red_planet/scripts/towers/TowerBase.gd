@@ -25,22 +25,30 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	# 处理玩家输入
-	if player_looking:
+	# 处理玩家输入	
+	if !get_tower_instance_controlled() and player_looking:
 		if Input.is_action_just_pressed("interact"):
 			if not has_built:
 				build_tower()
 			else:
-				interactive_tower()
+				enter_tower()
 		if Input.is_action_just_pressed("sold") and has_built:
 			sell_tower()
 		if Input.is_action_just_pressed("upgrade") and has_built:
 			upgrade_tower()
-	
+	elif get_tower_instance_controlled():
+		if Input.is_action_just_pressed("interact"):
+			exit_tower()
+		if Input.is_action_just_pressed("sold"):
+			exit_tower()
+			sell_tower()
+		if Input.is_action_just_pressed("upgrade"):
+			upgrade_tower()
+
 	# 检测玩家注视
 	_check_player_looking()
 
-func interactive_tower() -> void:
+func enter_tower() -> void:
 	# 获取炮塔实例
 	var tower_instance = $Tower.get_child(0)
 	if not tower_instance:
@@ -54,6 +62,15 @@ func interactive_tower() -> void:
 		if player_controller:
 			tower_instance.enter_tower_control(player_controller)
 			print("Entered tower control")
+
+
+func exit_tower() -> void:
+	# 获取炮塔实例
+	var tower_instance = $Tower.get_child(0)
+	
+	# 检查是否可以退出
+	if tower_instance.has_method("exit_tower_control"):
+		tower_instance.exit_tower_control()
 	
 # 建造炮塔
 func build_tower() -> void:
@@ -100,9 +117,6 @@ func build_tower() -> void:
 func upgrade_tower() -> void:
 	# 获取炮塔实例
 	var tower_instance = $Tower.get_child(0)
-	if not tower_instance:
-		print("Error: Tower instance not found")
-		return
 	
 	# 检查是否可以升级
 	if not tower_instance.has_method("upgrade"):
@@ -117,9 +131,6 @@ func upgrade_tower() -> void:
 func sell_tower() -> void:
 	# 获取炮塔实例
 	var tower_instance = $Tower.get_child(0)
-	if not tower_instance:
-		print("Error: Tower instance not found")
-		return
 	
 	# 调用出售方法
 	tower_instance.sell()
@@ -130,6 +141,14 @@ func sell_tower() -> void:
 	refresh_interactive_ui()
 	# 显示当前的TowerBase
 	$MeshInstance3D.show()
+
+func get_tower_instance_controlled() -> bool:
+	# 获取炮塔实例
+	if !has_built:
+		return false
+
+	var tower_instance = $Tower.get_child(0)
+	return tower_instance.is_player_controlled
 
 # 检测玩家是否注视该单位
 func _check_player_looking() -> void:

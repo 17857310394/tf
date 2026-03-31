@@ -48,13 +48,13 @@ func _move_towards_target():
 		var velocity = direction * move_speed
 		move_and_slide()
 
-func take_damage(amount: float, hit_position: Vector3 = Vector3.ZERO):
+func take_damage(amount: float,body_shape_index:int):
 	# 计算伤害（考虑弱点系统）
 	var final_damage = amount
 	# 检查是否有弱点检测器
 	var weak_point_detector = get_node_or_null("WeakPointDetector")
 	if weak_point_detector and weak_point_detector.has_method("calculate_damage"):
-		final_damage = weak_point_detector.calculate_damage(amount, hit_position)
+		final_damage = weak_point_detector.calculate_damage(amount, body_shape_index)
 
 	current_health -= final_damage
 	print("Enemy took damage: ", final_damage, " Current health: ", current_health)

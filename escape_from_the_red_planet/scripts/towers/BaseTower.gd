@@ -134,10 +134,6 @@ func _input(event):
 			is_firing = true
 		else:
 			is_firing = false
-	
-	# 退出
-	if event is InputEventKey and event.pressed and event.keycode == KEY_F:
-		exit_tower_control()
 
 # 目标选择
 # 功能：选择攻击目标

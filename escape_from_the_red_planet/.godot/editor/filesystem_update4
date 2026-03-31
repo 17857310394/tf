@@ -1,3 +1,11 @@
 res://scripts/player/PlayerController.gd
 res://scripts/towers/BaseTower.gd
-res://scripts/towers/GroundAttackTower.gd
+res://ui/panels/playerMain.tscn
+res://scenes/new_mesh_library.tres
+res://assets/shader/range_visualizer.gdshader
+res://scripts/GameScene.gd
+res://scripts/towers/TowerBase.gd
+res://scenes/enemies/GroundEnemy.tscn
+res://scripts/bullet.gd
+res://scripts/enemies/GroundEnemy.gd
+res://scripts/enemies/WeakPointDetector.gd

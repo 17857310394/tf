@@ -125,7 +125,6 @@ func _detect_looked_at_object() -> Node3D:
 
 	# 如果有碰撞，返回碰撞对象
 	if collision:
-		print("碰撞对象: " + str(collision.collider.name))
 		return collision.collider
 	
 	# 否则返回null

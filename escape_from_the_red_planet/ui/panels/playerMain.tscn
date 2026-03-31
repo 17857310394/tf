@@ -153,7 +153,7 @@ offset_left = -24.0
 offset_right = 24.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "进入”F“"
+text = "进入/退出”F“"
 vertical_alignment = 1
 
 [node name="sell" type="Button" parent="interactive_main" unique_id=291551063]
