@@ -99,12 +99,12 @@ func build_tower() -> void:
 	# 实例化地面攻击炮塔
 	var tower_instance = ground_attack_tower_prefab.instantiate()
 	
+	# 将炮塔添加到场景中
+	$Tower.add_child(tower_instance)
+	
 	# 设置炮塔位置与TowerBase一致
 	tower_instance.global_position = global_position
 	tower_instance.global_rotation = global_rotation
-	
-	# 将炮塔添加到场景中
-	$Tower.add_child(tower_instance)
 	
 	# 标记为已建造
 	has_built = true

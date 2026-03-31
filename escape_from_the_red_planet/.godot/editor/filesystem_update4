@@ -9,3 +9,11 @@ res://scenes/enemies/GroundEnemy.tscn
 res://scripts/bullet.gd
 res://scripts/enemies/GroundEnemy.gd
 res://scripts/enemies/WeakPointDetector.gd
+res://scenes/levels/GameScene.tscn
+res://scenes/towers/TowerBase.tscn
+res://scenes/enemies/FlyingEnemy.tscn
+res://scripts/enemies/Enemy.gd
+res://scripts/enemies/FlyingEnemy.gd
+res://scenes/enemies/FlyEnemy.tscn
+res://scenes/towers/GroundAttackTower.tscn
+res://scripts/enemies/EnemySpawner.gd

@@ -6,7 +6,7 @@
 size = Vector3(0.5, 1, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mq1r5"]
-size = Vector3(2, 1, 2)
+size = Vector3(1.2, 1, 1.2)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_d6ujd"]
 radius = 3.0

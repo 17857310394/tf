@@ -32,6 +32,7 @@ window/title="Escape From The Red Planet"
 tower=""
 player=""
 enemies=""
+base=""
 
 [input]
 

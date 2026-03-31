@@ -139,12 +139,12 @@ func _input(event: InputEvent) -> void:
 		# 处理鼠标移动
 		_handle_mouse_motion(event)
 	
-	# # 按 ESC 键释放鼠标
-	# if Input.is_action_just_pressed("pause"):
-	# 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-	# 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	# 	else:
-	# 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	# 按 ESC 键释放鼠标
+	if Input.is_action_just_pressed("pause"):
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _handle_mouse_motion(event: InputEventMouseMotion) -> void:
 	# 直接修改camera_rotation分量实现相机旋转

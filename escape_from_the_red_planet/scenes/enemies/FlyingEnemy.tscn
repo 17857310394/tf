@@ -1,30 +1,36 @@
-[gd_scene format=3 uid="uid://bxp87ksbvkr5o"]
+[gd_scene format=3 uid="uid://b1nn8eiapw4c7"]
 
 [ext_resource type="Script" uid="uid://cc3oorwuebdlo" path="res://scripts/enemies/FlyingEnemy.gd" id="1_4a5b2"]
-[ext_resource type="Script" uid="uid://dtt8gbeft5scj" path="res://scripts/enemies/WeakPointDetector.gd" id="2_7c9d3"]
+[ext_resource type="Script" uid="uid://dtt8gbeft5scj" path="res://scripts/enemies/WeakPointDetector.gd" id="1_pca1f"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_wbbus"]
-radius = 0.3
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5b15g"]
+height = 0.5
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wbbus"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_tpn24"]
+height = 1.4
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_wbbus"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bf588"]
 
-[node name="FlyingEnemy" type="CharacterBody3D" unique_id=2063208204 groups=["enemies"]]
+[node name="FlyEnemy" type="CharacterBody3D" unique_id=1691396567 groups=["enemies"]]
 motion_mode = 1
 script = ExtResource("1_4a5b2")
 
-[node name="WeakPointDetector" type="Node3D" parent="." unique_id=1595108802]
-script = ExtResource("2_7c9d3")
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1468076938]
+navigation_layers = 2
+avoidance_enabled = true
 
-[node name="WeakPoint" type="Area3D" parent="." unique_id=1419999583]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68081, 0)
+[node name="WeakPointDetector" type="Node3D" parent="." unique_id=1565923664]
+script = ExtResource("1_pca1f")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WeakPoint" unique_id=1342476894]
-shape = SubResource("SphereShape3D_wbbus")
+[node name="WeakCollisionShape3D" type="CollisionShape3D" parent="." unique_id=1909609670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65734124, 0)
+shape = SubResource("CylinderShape3D_5b15g")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1487449600]
-shape = SubResource("CapsuleShape3D_wbbus")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=599151342]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.28277686, 0)
+shape = SubResource("CylinderShape3D_tpn24")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1252600211]
-mesh = SubResource("CapsuleMesh_wbbus")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=198923114]
+mesh = SubResource("CapsuleMesh_bf588")
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_velocity_computed"]

@@ -286,6 +286,7 @@ func get_current_range() -> float:
 #   amount: 伤害量
 func take_damage(amount: float) -> void:
 	current_health = max(0, current_health - amount)
+	print("Tower took ", amount, " damage, current health: ", current_health)
 	if current_health <= 0:
 		destroyed.emit()
 		queue_free()
