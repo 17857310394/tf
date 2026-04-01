@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://brusm8v3xghh0"]
+
+[ext_resource type="Script" uid="uid://dtt8gbeft5scj" path="res://scripts/enemies/WeakPointDetector.gd" id="1_kddyq"]
+[ext_resource type="Script" uid="uid://lftg17661fxl" path="res://scripts/enemies/AiEnemy.gd" id="1_pu5ag"]
+[ext_resource type="Script" uid="uid://dsmsvn2wglteh" path="res://scripts/ai/AIStateMachine.gd" id="2_3nbta"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3nbta"]
+height = 0.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pu5ag"]
+height = 1.4
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3ywy5"]
+
+[node name="AiEnemy" type="CharacterBody3D" unique_id=659917569 groups=["enemies"]]
+script = ExtResource("1_pu5ag")
+max_health = 200
+attack_damage = 25
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=60596060]
+
+[node name="WeakPointDetector" type="Node3D" parent="." unique_id=762089105]
+script = ExtResource("1_kddyq")
+
+[node name="WeakCollisionShape3D" type="CollisionShape3D" parent="." unique_id=1466136100]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65734124, 0)
+shape = SubResource("CylinderShape3D_3nbta")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=852354276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.28277686, 0)
+shape = SubResource("CylinderShape3D_pu5ag")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1443582404]
+mesh = SubResource("CapsuleMesh_3ywy5")
+
+[node name="AiStateMachine" type="Node3D" parent="." unique_id=830566213]
+script = ExtResource("2_3nbta")
+chase_distance = 100.0
+escape_distance = 30.0

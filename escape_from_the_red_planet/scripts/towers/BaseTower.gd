@@ -80,7 +80,14 @@ func _process(delta):
 		if not target:
 			select_target()
 		elif attack_cooldown <= 0:
-			attack()
+			var distance = global_position.distance_to(target.global_position)
+			if distance > get_current_range():
+				# 目标超出攻击范围，重新选择目标
+				target = null
+				target_lost.emit()
+				return
+			else:
+				attack()
 
 # 攻击方法（由子类实现）
 # 功能：执行攻击逻辑
@@ -288,6 +295,8 @@ func take_damage(amount: float) -> void:
 	current_health = max(0, current_health - amount)
 	print("Tower took ", amount, " damage, current health: ", current_health)
 	if current_health <= 0:
+		if is_player_controlled:
+			exit_tower_control()
 		destroyed.emit()
 		queue_free()
 

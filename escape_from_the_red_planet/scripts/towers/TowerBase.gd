@@ -10,7 +10,9 @@ var player_in_area: bool = false
 var ground_attack_tower_prefab: PackedScene
 
 # 建造状态
-var has_built: bool = false
+func has_built() -> bool:
+	# 检查 Tower 节点是否有子节点
+	return $Tower.get_child_count() > 0
 
 # 玩家注视状态
 var player_looking: bool = false
@@ -28,13 +30,13 @@ func _process(_delta: float) -> void:
 	# 处理玩家输入	
 	if !get_tower_instance_controlled() and player_looking:
 		if Input.is_action_just_pressed("interact"):
-			if not has_built:
+			if not has_built():
 				build_tower()
 			else:
 				enter_tower()
-		if Input.is_action_just_pressed("sold") and has_built:
+		if Input.is_action_just_pressed("sold") and has_built():
 			sell_tower()
-		if Input.is_action_just_pressed("upgrade") and has_built:
+		if Input.is_action_just_pressed("upgrade") and has_built():
 			upgrade_tower()
 	elif get_tower_instance_controlled():
 		if Input.is_action_just_pressed("interact"):
@@ -106,8 +108,7 @@ func build_tower() -> void:
 	tower_instance.global_position = global_position
 	tower_instance.global_rotation = global_rotation
 	
-	# 标记为已建造
-	has_built = true
+	# 建造完成后，$Tower 节点会有子节点，has_built() 方法会自动返回 true
 	
 	refresh_interactive_ui()
 	# 隐藏当前的TowerBase
@@ -135,8 +136,7 @@ func sell_tower() -> void:
 	# 调用出售方法
 	tower_instance.sell()
 	
-	# 标记为未建造
-	has_built = false
+	# 出售完成后，$Tower 节点会没有子节点，has_built() 方法会自动返回 false
 
 	refresh_interactive_ui()
 	# 显示当前的TowerBase
@@ -144,7 +144,7 @@ func sell_tower() -> void:
 
 func get_tower_instance_controlled() -> bool:
 	# 获取炮塔实例
-	if !has_built:
+	if !has_built():
 		return false
 
 	var tower_instance = $Tower.get_child(0)
@@ -170,7 +170,7 @@ func refresh_interactive_ui() -> void:
 	if player_looking:
 		print("玩家开始注视该单位")
 		# 检查 UIManager 是否存在
-		if !has_built:
+		if !has_built():
 			UIManager.instance.emit_event(NoteType.player_main_text,true, "按“F”建造")
 			UIManager.instance.emit_event(NoteType.player_main_interactive,false)
 		else:

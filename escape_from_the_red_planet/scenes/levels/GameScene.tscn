@@ -6,6 +6,9 @@
 [ext_resource type="Script" uid="uid://coae26oaktkt6" path="res://scripts/GridMap.gd" id="3_gssgs"]
 [ext_resource type="Script" uid="uid://qu0jxpgniuu5" path="res://scripts/managers/CameraManager.gd" id="5_12345"]
 [ext_resource type="Script" uid="uid://62k2gi6pwmt" path="res://scripts/enemies/EnemySpawner.gd" id="6_4vw1i"]
+[ext_resource type="Script" uid="uid://jvd1k6n2wmy7" path="res://scripts/towers/TowerMain.gd" id="6_8ypj0"]
+[ext_resource type="PackedScene" uid="uid://brusm8v3xghh0" path="res://scenes/enemies/AiEnemy.tscn" id="7_5p25d"]
+[ext_resource type="Script" uid="uid://clfdipedb6wh1" path="res://scripts/towers/TowerMainData.gd" id="7_w0bbe"]
 
 [sub_resource type="Environment" id="Environment_0"]
 
@@ -15,6 +18,10 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Arr
 
 [sub_resource type="BoxMesh" id="BoxMesh_ad7hb"]
 size = Vector3(2, 2, 2)
+
+[sub_resource type="Resource" id="Resource_ecxky"]
+script = ExtResource("7_w0bbe")
+metadata/_custom_type_script = "uid://clfdipedb6wh1"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5p25d"]
 size = Vector3(2, 2, 2)
@@ -63,6 +70,8 @@ metadata/_editor_floor_ = Vector3(0, 1, 0)
 [node name="city" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=1654686552 groups=["base"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6758671, 0)
 mesh = SubResource("BoxMesh_ad7hb")
+script = ExtResource("6_8ypj0")
+tower_data = SubResource("Resource_ecxky")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/city" unique_id=1689951752]
 
@@ -98,3 +107,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 55)
 
 [node name="spawner4" type="Node3D" parent="enemySpawner" unique_id=1504310112]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, -55)
+
+[node name="AiEnemy" parent="." unique_id=659917569 instance=ExtResource("7_5p25d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.09061, 1, 13.54673)

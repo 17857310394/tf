@@ -3,7 +3,8 @@ extends Node3D
 # 敌人类型枚举
 enum EnemyType {
 	GROUND_ENEMY,
-	FLYING_ENEMY
+	FLYING_ENEMY,
+	AI_ENEMY
 }
 
 # 波次配置 - 支持混合刷怪
@@ -53,6 +54,7 @@ func _collect_spawn_points():
 		print("Warning: enemySpawner node not found")
 
 func _process(delta):
+	return
 	if is_spawning:
 		# 生成敌人
 		wave_timer += delta
@@ -152,6 +154,8 @@ func _get_enemy_scene_path(enemy_type: int) -> String:
 			return "res://scenes/enemies/GroundEnemy.tscn"
 		EnemyType.FLYING_ENEMY:
 			return "res://scenes/enemies/FlyingEnemy.tscn"
+		EnemyType.AI_ENEMY:
+			return "res://scenes/enemies/AiEnemy.tscn"
 		_:
 			return ""
 		
@@ -163,6 +167,8 @@ func _get_enemy_name(enemy_type: int) -> String:
 			return "GroundEnemy"
 		EnemyType.FLYING_ENEMY:
 			return "FlyingEnemy"
+		EnemyType.AI_ENEMY:
+			return "AiEnemy"
 		_:
 			return "Unknown Enemy"
 		

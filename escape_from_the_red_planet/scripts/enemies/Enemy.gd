@@ -34,6 +34,8 @@ func _ready():
 		# 初始设置一个默认目标
 		target_position = Vector3(100, 0, 100)
 		navigation_agent.target_position = target_position
+		if enemy_type == EnemyType.FLY:
+			navigation_agent.layer = 2
 
 func _physics_process(delta):
 	# 应用重力（无论是否死亡）
